@@ -32,20 +32,92 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-  final UpAndDownChart profitList = UpAndDownChart(moneyType: "USD", upAndDownList: [
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 00:00:00.000'), endDate: DateTime.parse('1000-01-01 01:00:00.000'), value: -35),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 01:00:00.000'), endDate: DateTime.parse('1000-01-01 02:00:00.000'), value: -36.13),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 02:00:00.000'), endDate: DateTime.parse('1000-01-01 03:00:00.000'), value: -35.1),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 03:00:00.000'), endDate: DateTime.parse('1000-01-01 04:00:00.000'), value: -35.84),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 04:00:00.000'), endDate: DateTime.parse('1000-01-01 05:00:00.000'), value: -35.5),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 05:00:00.000'), endDate: DateTime.parse('1000-01-01 06:00:00.000'), value: -34.75),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 06:00:00.000'), endDate: DateTime.parse('1000-01-01 07:00:00.000'), value: 155.5),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 08:00:00.000'), endDate: DateTime.parse('1000-01-01 09:00:00.000'), value: 1002.5),
-    UpAndDownElement(startDate: DateTime.parse('1000-01-01 09:00:00.000'), endDate: DateTime.parse('1000-01-01 10:00:00.000'), value: 200.75),
+  final UpAndDownProfitChart profitList = UpAndDownProfitChart(moneyType: "USD", upAndDownProfitList: [
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 00:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 01:00:00.000'),
+      profitMerge: -35,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 01:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 02:00:00.000'),
+      profitMerge: -36.13,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 02:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 03:00:00.000'),
+      profitMerge: -35.1,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 03:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 04:00:00.000'),
+      profitMerge: -35.84,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 04:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 05:00:00.000'),
+      profitMerge: -35.5,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 05:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 06:00:00.000'),
+      profitMerge: -34.75,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 06:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 07:00:00.000'),
+      profitMerge: 155.5,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 08:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 09:00:00.000'),
+      profitMerge: 1002.5,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
+    UpAndDownProfitElement(
+      startDate: DateTime.parse('1000-01-01 09:00:00.000'),
+      endDate: DateTime.parse('1000-01-01 10:00:00.000'),
+      profitMerge: 200.75,
+      exchangeProfitList: [],
+      sellCardProfitList: [],
+      transferProfitList: [],
+      excelProfitList: [],
+    ),
   ]);
   @override
   Widget build(BuildContext context) {
     // return Container();
-    return Scaffold(body: ChartUpAndDown(profitList: profitList, dateTypeEnum: DateTypeEnum.day));
+    return Scaffold(body: ChartUpAndDown(upAndDown: profitList, dateTypeEnum: DateTypeEnum.day));
   }
 }

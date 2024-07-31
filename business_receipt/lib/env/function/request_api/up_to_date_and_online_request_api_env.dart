@@ -18,7 +18,7 @@ Future<void> getUpToDateAdminGlobal({required BuildContext context, required Fun
   final bool hasInternetAccess = await InternetConnection().hasInternetAccess;
   if (hasInternetAccess) {
     final Response response = await dioGlobal.get(
-      '${endPointGlobal}get_up_to_date_and_online_admin',
+      '${endPointGlobal}get_up_to_date_and_online_admin_or_employee',
       queryParameters: {'admin_id': profileModelAdminGlobal!.id, "employee_id": (profileModelEmployeeGlobal == null) ? null : profileModelEmployeeGlobal!.id},
       options: Options(headers: {
         "Content-Type": "application/json",

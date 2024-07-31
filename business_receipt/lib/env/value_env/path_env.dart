@@ -10,6 +10,6 @@ const String moonIconImageGlobal = "assets/icon/moon.png";
 const String sunIconImageGlobal = "assets/icon/sun.png";
 
 //------------------endpoint------------------
-const String domainGlobal = "http://192.168.1.110";
+const String domainGlobal = "http://192.168.1.106";
 // const String domainGlobal = "https://appcobusinessreceiptdatabase.uk";
 const String endPointGlobal = "$domainGlobal/api20000723/";

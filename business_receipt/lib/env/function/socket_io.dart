@@ -22,7 +22,6 @@ void connectSocketIO({required BuildContext context, required Function setStateF
 
   socketIOGlobal!.onConnect((data) {
     socketIOGlobal!.on("is_admin_editing_setting", (isAdminEditingSetting) {
-      print("isAdminEditingSetting: $isAdminEditingSetting");
       if (isAdminEditingSetting) {
         loadingDialogGlobal(context: context, loadingTitle: editingSettingStrGlobal);
       } else {

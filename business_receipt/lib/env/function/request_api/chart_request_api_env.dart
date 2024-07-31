@@ -42,21 +42,14 @@ Future<void> getChartAdminGlobal({
         "authorization": "Bearer ${getAdminOrEmployeeTokenFromLocalStorage()}",
       }),
     );
+    print(json.encode(response.data));
     final bool isValidQuery = checkValidateResponseAdminOrEmployee(response: response, context: context);
-    if (response.data["valid_rate"]) {
-      // final ChartModel chartModelTemp = chartModelFromJson(str: response.data);
+    UpAndDownProfitChart? chartProfitModelTemp = (response.data["profit_target_date_list"] == null) ? null : upAndDownChartFromJson(str: response.data);
+    List<UpAndDownCountElement>? chartCountModelListTemp = (response.data["count_target_date_list"] == null) ? null : upAndDownCountElementFromJson(str: response.data["count_target_date_list"]);
 
-      if (isValidQuery) {
-        closeDialogGlobal(context: context);
-      }
-      callBack();
-    } else {
-      void okFunction() {
-        closeDialogGlobal(context: context);
-      }
-
+    if (isValidQuery) {
       closeDialogGlobal(context: context);
-      okDialogGlobal(context: context, okFunction: okFunction, titleStr: rateStrGlobal, subtitleStr: errorRateConfirmGlobal);
     }
+    callBack(chartProfitModelTemp: chartProfitModelTemp, chartType: chartType, chartCountModelListTemp: chartCountModelListTemp);
   }
 }

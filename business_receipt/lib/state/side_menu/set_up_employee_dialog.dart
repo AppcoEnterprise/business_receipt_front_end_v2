@@ -1310,6 +1310,20 @@ void setUpEmployeeDialog({
         return CustomButtonGlobal(insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable);
       }
 
+      Widget employeeInformationWidget() {
+        return Padding(
+          padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.mini)),
+          child: CustomButtonGlobal(
+            insideSizeBoxWidget: Column(children: [
+              paddingTopWidget(widget: employeeNameWidget()),
+              paddingTopWidget(widget: passwordTextFieldWidget()),
+              paddingTopWidget(widget: bioFieldWidget()),
+            ]),
+            onTapUnlessDisable: () {},
+          ),
+        );
+      }
+
       return Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.start, children: [
         paddingBottomTitleWidget(),
         Expanded(
@@ -1317,9 +1331,10 @@ void setUpEmployeeDialog({
             child: Padding(
               padding: EdgeInsets.all(paddingSizeGlobal(level: Level.mini)),
               child: Column(children: [
-                paddingTopWidget(widget: employeeNameWidget()),
-                paddingTopWidget(widget: passwordTextFieldWidget()),
-                paddingTopWidget(widget: bioFieldWidget()),
+                // paddingTopWidget(widget: employeeNameWidget()),
+                // paddingTopWidget(widget: passwordTextFieldWidget()),
+                // paddingTopWidget(widget: bioFieldWidget()),
+                employeeInformationWidget(),
                 isCreateNewEmployee ? Container() : paddingTopWidget(widget: salaryDetailWidget()),
               ]),
             ),

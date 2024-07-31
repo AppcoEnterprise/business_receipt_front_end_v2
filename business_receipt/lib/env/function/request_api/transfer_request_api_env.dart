@@ -126,7 +126,6 @@ Future<void> updateTransferEmployeeGlobal({
 
     final bool isValidQuery = checkValidateResponseAdminOrEmployee(response: response, context: context);
     List<MatchTransferList> transferOrderMatchList = [];
-    print("response.data => ${json.encode(response.data)}");
     final isMatchTransfer = response.data["is_existed"];
     if (isMatchTransfer) {
       transferOrderMatchList.addAll(matchTransferListFromJson(str: response.data["match_transfer_list"]));

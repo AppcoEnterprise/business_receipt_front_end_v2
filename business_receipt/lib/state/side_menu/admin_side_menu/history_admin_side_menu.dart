@@ -198,7 +198,7 @@ class _HistoryAdminSideMenuState extends State<HistoryAdminSideMenu> {
               DateTime targetDate = DateTime.now();
               DateTime? firstDate;
               void callBack({required DateTime? firstDateNew, required bool isExisted}) {
-                if (isExisted) {
+                // if (isExisted) {
                   firstDate = firstDateNew;
                   void cancelFunctionOnTap() {
                     closeDialogGlobal(context: context);
@@ -232,18 +232,19 @@ class _HistoryAdminSideMenuState extends State<HistoryAdminSideMenu> {
                     context: context,
                     contentFunctionReturnWidget: contentFunctionReturnWidget,
                   );
-                } else {
-                  void okFunction() {
-                    closeDialogGlobal(context: context);
-                  }
+                // } else {
 
-                  okDialogGlobal(
-                    context: context,
-                    okFunction: okFunction,
-                    titleStr: noHistoryStrGlobal,
-                    subtitleStr: "$noHistoryContentStrGlobal ${formatDateDateToStr(date: targetDate)}",
-                  );
-                }
+                  // void okFunction() {
+                  //   closeDialogGlobal(context: context);
+                  // }
+
+                  // okDialogGlobal(
+                  //   context: context,
+                  //   okFunction: okFunction,
+                  //   titleStr: noHistoryStrGlobal,
+                  //   subtitleStr: "$noHistoryContentStrGlobal ${formatDateDateToStr(date: targetDate)}",
+                  // );
+                // }
               }
 
               getHistoryByDateEmployeeGlobal(

@@ -18,8 +18,13 @@ String formatFullDateToStr({required DateTime date}) {
 String formatFullWithoutSSDateToStr({required DateTime date}) {
   return dateFullWithoutSSFormat.format(date);
 }
+
 String formatDateYMToStr({required DateTime date}) {
   return dateYMFormat.format(date);
+}
+
+String formatDateYToStr({required DateTime date}) {
+  return dateYFormat.format(date);
 }
 
 String formatDateDateToStr({required DateTime date}) {
@@ -106,15 +111,15 @@ DateTime defaultDate({required int hour, required int minute, required int secon
   return DateTime(1000, 1, 1, hour, minute, second);
 }
 
-String secondNumberToHMSStr(int second) {
-  int h, m, s;
-  h = second ~/ 3600;
-  m = ((second - h * 3600)) ~/ 60;
-  s = second - (h * 3600) - (m * 60);
-  String result = "${h}h:${m}m:${s}s";
+// String secondNumberToHMSStr(int second) {
+//   int h, m, s;
+//   h = second ~/ 3600;
+//   m = ((second - h * 3600)) ~/ 60;
+//   s = second - (h * 3600) - (m * 60);
+//   String result = "${h}h:${m}m:${s}s";
 
-  return result;
-}
+//   return result;
+// }
 
 String hhMmSsDuration(Duration duration) {
   String negativeSign = duration.isNegative ? '-' : '';
@@ -122,4 +127,49 @@ String hhMmSsDuration(Duration duration) {
   String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60).abs());
   String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60).abs());
   return "$negativeSign${twoDigits(duration.inHours)}h:${twoDigitMinutes}m:${twoDigitSeconds}s";
+}
+
+// int getDaysInMonth(int year, int month) {
+//   if (month == DateTime.february) {
+//     final bool isLeapYear = (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
+//     return isLeapYear ? 29 : 28;
+//   }
+//   const List<int> daysInMonth = <int>[31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+//   return daysInMonth[month - 1];
+// }
+
+List<DateTime> getMonthInYear({required DateTime startDate, required DateTime endDate}) {
+  DateTime dateStartTemp = DateTime(startDate.year, startDate.month);
+  DateTime dateEndTemp = DateTime(endDate.year, endDate.month);
+  List<DateTime> dateMYList = [];
+
+  while (dateStartTemp.isBefore(dateEndTemp)) {
+    // print(DateFormat("M/yyyy").format());
+    dateMYList.add(dateStartTemp);
+    dateStartTemp = DateTime(dateStartTemp.year, dateStartTemp.month + 1);
+  }
+  dateMYList.add(dateEndTemp);
+  return dateMYList;
+}
+List<DateTime> getYearInAllYear({required DateTime startDate, required DateTime endDate}) {
+  DateTime dateStartTemp = DateTime(startDate.year);
+  DateTime dateEndTemp = DateTime(endDate.year);
+  List<DateTime> dateYList = [];
+
+  while (dateStartTemp.isBefore(dateEndTemp)) {
+    // print(DateFormat("M/yyyy").format());
+    dateYList.add(dateStartTemp);
+    dateStartTemp = DateTime(dateStartTemp.year + 1);
+  }
+  dateYList.add(dateEndTemp);
+  return dateYList;
+}
+
+int getDaysInMonth({required int month, required int year}) {
+  if (month == DateTime.february) {
+    final bool isLeapYear = (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0);
+    return isLeapYear ? 29 : 28;
+  }
+  const List<int> daysInMonth = <int>[31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return daysInMonth[month - 1];
 }

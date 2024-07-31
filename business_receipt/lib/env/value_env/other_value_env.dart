@@ -118,6 +118,7 @@ const int flexTypeGlobal = 4;
 //-------------------date format-----------------------------------------
 intl.DateFormat dateFullFormat = intl.DateFormat("hh:mm:ss a dd-MM-yyyy");
 intl.DateFormat dateFullWithoutSSFormat = intl.DateFormat("hh:mm a dd-MM-yyyy");
+intl.DateFormat dateYFormat = intl.DateFormat("yyyy");
 intl.DateFormat dateYMFormat = intl.DateFormat("MM-yyyy");
 intl.DateFormat dateDateFormat = intl.DateFormat("dd-MM-yyyy");
 intl.DateFormat timeDateFormat = intl.DateFormat("hh:mm:ss a");

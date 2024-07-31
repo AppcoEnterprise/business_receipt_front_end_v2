@@ -22,7 +22,9 @@ import 'package:business_receipt/env/value_env/large_normal_mini_env.dart';
 import 'package:business_receipt/env/value_env/other_value_env.dart';
 import 'package:business_receipt/env/value_env/temporary_database/employee_or_admin_temporary_database.dart';
 import 'package:business_receipt/env/value_env/title_env.dart';
+import 'package:business_receipt/env/value_env/valid_button_env.dart';
 import 'package:business_receipt/model/admin_model/chart_model.dart';
+import 'package:business_receipt/model/valid_button_model.dart';
 import 'package:business_receipt/state/side_menu/body_template_side_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -34,15 +36,25 @@ class ChartAdminSideMenu extends StatefulWidget {
   State<ChartAdminSideMenu> createState() => _ChartAdminSideMenuState();
 }
 
-
-
 class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
-  DateTime? date = DateTime.now();
+  // DateTime? date = DateTime.now();
   int dateTypeIndex = 0;
   int chartTypeIndex = 0;
   String? moneyType;
   // double detailWidth = 400;
   // double detailHeight = 340;
+  DateTypeEnum getDateTypeEnumByIndex({required int index}) {
+    switch (index) {
+      case 0:
+        return DateTypeEnum.day;
+      case 1:
+        return DateTypeEnum.month;
+      case 2:
+        return DateTypeEnum.year;
+      default:
+        return DateTypeEnum.all;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,27 +62,6 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
       List<Widget> inWrapWidgetList() {
         Widget addCardStockWidget() {
           Widget insideSizeBoxWidget() {
-            Widget dateSelectedWidget() {
-              void onTapUnlessDisableAndValid() async {
-                final DateTime currentDate = DateTime.now();
-                date = await showDatePicker(
-                  context: context,
-                  initialDate: date!,
-                  firstDate: firstDateGlobal!,
-                  lastDate: currentDate,
-                );
-                date ??= currentDate;
-                setState(() {});
-              }
-
-              return pickDateAsyncButtonOrContainerWidget(
-                level: Level.normal,
-                context: context,
-                dateStr: formatDateDateToStr(date: date!),
-                onTapFunction: onTapUnlessDisableAndValid,
-              );
-            }
-
             Widget dateTypeDropDownWidget() {
               void onTapFunction() {}
               void onChangedFunction({required String value, required int index}) {
@@ -124,17 +115,17 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
                       onTapFunction: onTapFunction,
                       onChangedFunction: onChangedFunction,
                       selectedStr: moneyType,
-                      menuItemStrList: moneyTypeOnlyList(moneyTypeDefault: moneyType, isHasNone: true, isNotCheckDeleted: true),
+                      menuItemStrList: moneyTypeOnlyList(moneyTypeDefault: moneyType, isHasNone: false, isNotCheckDeleted: false),
                     )
                   : Container();
             }
 
             Widget paddingWidget({required Widget widget}) {
-              return Padding(padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.large)), child: widget);
+              return Padding(padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.normal)), child: widget);
             }
 
             return Column(children: [
-              paddingWidget(widget: dateSelectedWidget()),
+              // paddingWidget(widget: dateSelectedWidget()),
               paddingWidget(widget: dateTypeDropDownWidget()),
               (chartTypeIndex == 0) ? paddingWidget(widget: chartTypeDropDownWidget()) : chartTypeDropDownWidget(),
               moneyTypeDropDownWidget(),
@@ -148,61 +139,173 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
         return [addCardStockWidget()];
       }
 
-      void calculateOnTapFunction() {
-        // ChartModel chartModel = ChartModel(
-        //   chartExchange: [],
-        //   chartCard: [],
-        //   charExcel: [],
-        //   profit: Profit(
-        //     profitCardList: [],
-        //     profitCardMergeList: [],
-        //     profitExchangeAndCardAndExcelList: [],
-        //     profitExchangeAndCardAndExcelMergeList: [],
-        //     profitExchangeList: [],
-        //     profitExchangeMergeList: [],
-        //     profitExcelList: [],
-        //     profitExcelMergeList: [],
-        //   ),
-        //   count: Count(
-        //     countCard: CountModel(countList: []),
-        //     countExcel: CountModel(countList: []),
-        //     countExchange: CountModel(countList: []),
-        //     countExchangeAndCardAndExcel: CountModel(countList: []),
-        //   ),
-        // );
-        void callBack() {
-          Widget calculateCardDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
-            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: []);
-          }
-
+      Future<void> calculateOnTapFunction() async {
+        final DateTime currentDate = DateTime.now();
+        DateTime? date;
+        if (dateTypeIndex == 0) {
+          date = await showDatePicker(
+            context: context,
+            initialDate: currentDate,
+            firstDate: firstDateGlobal!,
+            lastDate: currentDate,
+          );
+        } else if (dateTypeIndex == 1) {
+          List<DateTime> dateTimeList = getMonthInYear(startDate: firstDateGlobal!, endDate: currentDate);
+          int selectedDate = dateTimeList.length - 1;
           void cancelFunctionOnTap() {
             closeDialogGlobal(context: context);
           }
 
-          actionDialogSetStateGlobal(
-            dialogHeight: dialogSizeGlobal(level: Level.large),
-            dialogWidth: dialogSizeGlobal(level: Level.large),
+          Widget calculateCardDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
+            Widget dateButtonWidget({required int dateIndex}) {
+              void onTapUnlessDisable() {}
+              Widget insideSizeBoxWidget() {
+                return Text(formatDateYMToStr(date: dateTimeList[dateIndex]), style: textStyleGlobal(level: Level.normal, color: (selectedDate == dateIndex) ? Colors.black : Colors.white));
+              }
+
+              return Padding(
+                padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.mini), right: paddingSizeGlobal(level: Level.mini)),
+                child: CustomButtonGlobal(isDisable: (selectedDate == dateIndex), colorSideBox: Colors.blue, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable),
+              );
+            }
+
+            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.normal)),
+                child: Text("Select Month", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
+              ),
+              SingleChildScrollView(
+                child: Wrap(children: [
+                  for (int i = 0; i < dateTimeList.length; i++) dateButtonWidget(dateIndex: i),
+                ]),
+              ),
+            ]);
+          }
+
+          void okFunctionOnTap() {
+            date = dateTimeList[selectedDate];
+            closeDialogGlobal(context: context);
+          }
+
+          await actionDialogSetStateGlobal(
+            dialogWidth: okChartSizeBoxWidthGlobal,
+            dialogHeight: okChartSizeBoxHeightGlobal,
             cancelFunctionOnTap: cancelFunctionOnTap,
             context: context,
+            okFunctionOnTap: okFunctionOnTap,
             contentFunctionReturnWidget: calculateCardDialog,
           );
-        }
+        } else if (dateTypeIndex == 2) {
+          List<DateTime> dateTimeList = getYearInAllYear(startDate: firstDateGlobal!, endDate: currentDate);
+          int selectedDate = dateTimeList.length - 1;
+          void cancelFunctionOnTap() {
+            closeDialogGlobal(context: context);
+          }
 
-        getChartAdminGlobal(
-          callBack: callBack,
-          context: context,
-          chartDateTypeStr: dateTypeStrList[dateTypeIndex],
-          // chartModel: chartModel,
-          selectedDate: date!,
-          chartType: chartTypeStrList[chartTypeIndex],
-          moneyType: moneyType,
-        );
+          Widget calculateCardDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
+            Widget dateButtonWidget({required int dateIndex}) {
+              void onTapUnlessDisable() {}
+              Widget insideSizeBoxWidget() {
+                return Text(formatDateYToStr(date: dateTimeList[dateIndex]), style: textStyleGlobal(level: Level.normal, color: (selectedDate == dateIndex) ? Colors.black : Colors.white));
+              }
+
+              return Padding(
+                padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.mini), right: paddingSizeGlobal(level: Level.mini)),
+                child: CustomButtonGlobal(isDisable: (selectedDate == dateIndex), colorSideBox: Colors.blue, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable),
+              );
+            }
+
+            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.normal)),
+                child: Text("Select Year", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
+              ),
+              SingleChildScrollView(
+                child: Wrap(children: [
+                  for (int i = 0; i < dateTimeList.length; i++) dateButtonWidget(dateIndex: i),
+                ]),
+              ),
+            ]);
+          }
+
+          void okFunctionOnTap() {
+            date = dateTimeList[selectedDate];
+            closeDialogGlobal(context: context);
+          }
+
+          await actionDialogSetStateGlobal(
+            dialogWidth: okChartSizeBoxWidthGlobal,
+            dialogHeight: okChartSizeBoxHeightGlobal,
+            cancelFunctionOnTap: cancelFunctionOnTap,
+            context: context,
+            okFunctionOnTap: okFunctionOnTap,
+            contentFunctionReturnWidget: calculateCardDialog,
+          );
+        } else {}
+        if (date != null) {
+          void callBack({required UpAndDownProfitChart? chartProfitModelTemp, required List<UpAndDownCountElement>? chartCountModelListTemp, required String chartType}) {
+            Widget calculateCardDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
+              if (chartTypeIndex == 0) {
+                return SingleChildScrollView(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Text("All Profit Marge By ${chartProfitModelTemp!.moneyType}", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
+                    ChartUpAndDown(upAndDown: chartProfitModelTemp, dateTypeEnum: getDateTypeEnumByIndex(index: dateTypeIndex)),
+                  ]),
+                );
+              } else if (chartTypeIndex == 1) {
+                return SingleChildScrollView(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    Text("Count Invoices", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
+                    ChartUp(upList: chartCountModelListTemp!, dateTypeEnum: getDateTypeEnumByIndex(index: dateTypeIndex)),
+                  ]),
+                );
+              }
+              return Container();
+            }
+
+            void cancelFunctionOnTap() {
+              closeDialogGlobal(context: context);
+            }
+
+            actionDialogSetStateGlobal(
+              dialogHeight: dialogSizeGlobal(level: Level.mini),
+              dialogWidth: dialogSizeGlobal(level: Level.large),
+              cancelFunctionOnTap: cancelFunctionOnTap,
+              context: context,
+              contentFunctionReturnWidget: calculateCardDialog,
+            );
+          }
+
+          getChartAdminGlobal(
+            callBack: callBack,
+            context: context,
+            chartDateTypeStr: dateTypeStrList[dateTypeIndex],
+            selectedDate: date!,
+            chartType: chartTypeStrList[chartTypeIndex],
+            moneyType: moneyType,
+          );
+        }
+      }
+
+      ValidButtonModel isValidCalculateOnTap() {
+        if (moneyType != null || (chartTypeIndex != 0)) {
+          return ValidButtonModel(isValid: true);
+        } else {
+          return ValidButtonModel(
+            isValid: moneyType != null,
+            errorType: ErrorTypeEnum.valueOfString,
+            error: "money type is not selected",
+          );
+        }
       }
 
       return BodyTemplateSideMenu(
         title: widget.title,
         inWrapWidgetList: inWrapWidgetList(),
-        calculateOnTapFunction: calculateOnTapFunction,
+        isValidCalculateOnTap: isValidCalculateOnTap(),
+        calculateOnTapFunction: () {
+          calculateOnTapFunction();
+        },
       );
     }
 

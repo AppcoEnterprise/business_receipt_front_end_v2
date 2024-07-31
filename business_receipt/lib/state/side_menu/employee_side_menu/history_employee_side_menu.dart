@@ -694,6 +694,9 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
       } else {
         void okFunction() {
           closeDialogGlobal(context: context);
+          if (widget.isAdminEditing) {
+            closeDialogGlobal(context: context);
+          }
         }
 
         okDialogGlobal(
@@ -705,28 +708,30 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
       }
     }
 
-    getHistoryByDateEmployeeGlobal(
-      callBack: callBack,
-      isNeedHistory: isNeedHistory,
-      context: context,
-      employeeId: widget.employeeId,
-      historyList: historyList,
-      targetDate: targetDate!,
-      cashModel: cashModel,
-      amountAndProfitModel: amountAndProfitModel,
-      cardModelList: cardModelList,
-      salaryList: salaryList,
-      displayBusinessOptionModel: displayBusinessOptionModel,
-      exchangeModelListEmployee: exchangeModelListEmployee,
-      transferModelListEmployee: transferModelListEmployee,
-      giveMoneyToMatModelListEmployee: giveMoneyToMatModelListEmployee,
-      giveCardToMatModelListEmployee: giveCardToMatModelListEmployee,
-      otherInOrOutComeModelListEmployee: otherInOrOutComeModelListEmployee,
-      sellCardModelListEmployee: sellCardModelListEmployee,
-      mainCardModelListEmployee: mainCardModelListEmployee,
-      borrowOrLendModelListEmployee: borrowOrLendModelListEmployee,
-      excelListEmployee: excelListEmployee,
-    );
+    if (targetDate != null) {
+      getHistoryByDateEmployeeGlobal(
+        callBack: callBack,
+        isNeedHistory: isNeedHistory,
+        context: context,
+        employeeId: widget.employeeId,
+        historyList: historyList,
+        targetDate: targetDate,
+        cashModel: cashModel,
+        amountAndProfitModel: amountAndProfitModel,
+        cardModelList: cardModelList,
+        salaryList: salaryList,
+        displayBusinessOptionModel: displayBusinessOptionModel,
+        exchangeModelListEmployee: exchangeModelListEmployee,
+        transferModelListEmployee: transferModelListEmployee,
+        giveMoneyToMatModelListEmployee: giveMoneyToMatModelListEmployee,
+        giveCardToMatModelListEmployee: giveCardToMatModelListEmployee,
+        otherInOrOutComeModelListEmployee: otherInOrOutComeModelListEmployee,
+        sellCardModelListEmployee: sellCardModelListEmployee,
+        mainCardModelListEmployee: mainCardModelListEmployee,
+        borrowOrLendModelListEmployee: borrowOrLendModelListEmployee,
+        excelListEmployee: excelListEmployee,
+      );
+    }
   }
 
   @override
@@ -775,8 +780,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
         Widget customTotalListWidget({required String titleStr, required List<Widget> totalListWidget}) {
           Widget titleTextWidget() {
             return Padding(
-              padding: EdgeInsets.only(
-                  left: paddingSizeGlobal(level: Level.mini), top: paddingSizeGlobal(level: Level.large), bottom: paddingSizeGlobal(level: Level.mini)),
+              padding: EdgeInsets.only(left: paddingSizeGlobal(level: Level.mini), top: paddingSizeGlobal(level: Level.large), bottom: paddingSizeGlobal(level: Level.mini)),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -789,8 +793,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
             return Column(children: [
               for (int totalIndex = 0; totalIndex < totalListWidget.length; totalIndex++)
                 Padding(
-                  padding: EdgeInsets.only(
-                      bottom: paddingSizeGlobal(level: Level.mini), left: paddingSizeGlobal(level: Level.mini), right: paddingSizeGlobal(level: Level.mini)),
+                  padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.mini), left: paddingSizeGlobal(level: Level.mini), right: paddingSizeGlobal(level: Level.mini)),
                   child: totalListWidget[totalIndex],
                 ),
             ]);
@@ -819,8 +822,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                   isAllowZeroAtLast: false,
                   places: (place >= 0) ? (place * multiPlaceOfProfitNumberWhenPlaceMoreThan0) : placeOfProfitNumberWhenPlaceMoreThan0,
                 );
-                return scrollText(
-                    textStr: "$totalsStrGlobal $amountStr $moneyTypeStr", textStyle: textStyleGlobal(level: Level.normal), alignment: Alignment.topCenter);
+                return scrollText(textStr: "$totalsStrGlobal $amountStr $moneyTypeStr", textStyle: textStyleGlobal(level: Level.normal), alignment: Alignment.topCenter);
               }
 
               Widget scrollTextAmountInUsedWidget() {
@@ -952,8 +954,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
               : customTotalListWidget(
                   titleStr: amountAndProfitStrGlobal,
                   totalListWidget: [
-                    for (int amountAndProfitIndex = 0; amountAndProfitIndex < widget.amountAndProfitModel.length; amountAndProfitIndex++)
-                      amountTextWidget(amountAndProfitIndex: amountAndProfitIndex)
+                    for (int amountAndProfitIndex = 0; amountAndProfitIndex < widget.amountAndProfitModel.length; amountAndProfitIndex++) amountTextWidget(amountAndProfitIndex: amountAndProfitIndex)
                   ],
                 );
         }
@@ -961,9 +962,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
         bool isShowCard() {
           for (int companyIndex = 0; companyIndex < widget.cardModelList.length; companyIndex++) {
             for (int categoryIndex = 0; categoryIndex < widget.cardModelList[companyIndex].categoryList.length; categoryIndex++) {
-              for (int mainIndexIndex = 0;
-                  mainIndexIndex < widget.cardModelList[companyIndex].categoryList[categoryIndex].mainPriceList.length;
-                  mainIndexIndex++) {
+              for (int mainIndexIndex = 0; mainIndexIndex < widget.cardModelList[companyIndex].categoryList[categoryIndex].mainPriceList.length; mainIndexIndex++) {
                 if (widget.cardModelList[companyIndex].categoryList[categoryIndex].mainPriceList[mainIndexIndex].maxStock != 0) {
                   return true;
                 }
@@ -999,10 +998,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                 ]);
               }
 
-              return Column(children: [
-                for (int categoryIndex = 0; categoryIndex < widget.cardModelList[cardIndex].categoryList.length; categoryIndex++)
-                  categoryWidget(categoryIndex: categoryIndex)
-              ]);
+              return Column(children: [for (int categoryIndex = 0; categoryIndex < widget.cardModelList[cardIndex].categoryList.length; categoryIndex++) categoryWidget(categoryIndex: categoryIndex)]);
             }
 
             void onTapUnlessDisable() {
@@ -1118,8 +1114,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                   Expanded(
                     child: wrapScrollDetectWidget(
                       inWrapWidgetList: [
-                        for (int mainIndex = 0; mainIndex < cardModelTemp.categoryList[categorySelectedIndex].mainPriceList.length; mainIndex++)
-                          categoryListWidget(mainIndex: mainIndex)
+                        for (int mainIndex = 0; mainIndex < cardModelTemp.categoryList[categorySelectedIndex].mainPriceList.length; mainIndex++) categoryListWidget(mainIndex: mainIndex)
                       ],
                       bottomFunction: bottomFunction,
                       topFunction: topFunction,
@@ -1143,10 +1138,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
               );
             }
 
-            return CustomButtonGlobal(
-                sizeBoxWidth: sizeBoxWidthGlobal,
-                insideSizeBoxWidget: Column(children: [companyNameTextWidget(), categoryListWidget()]),
-                onTapUnlessDisable: onTapUnlessDisable);
+            return CustomButtonGlobal(sizeBoxWidth: sizeBoxWidthGlobal, insideSizeBoxWidget: Column(children: [companyNameTextWidget(), categoryListWidget()]), onTapUnlessDisable: onTapUnlessDisable);
           }
 
           return isShowCard()
@@ -1228,8 +1220,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
             }
 
             Widget scrollTextProfitWidget() {
-              final double balanceNumber = totalEstimateCashMoneyStr(cashModel: widget.cashModel) -
-                  totalEstimateStr(cashModel: widget.cashModel, amountAndProfitModel: widget.amountAndProfitModel);
+              final double balanceNumber = totalEstimateCashMoneyStr(cashModel: widget.cashModel) - totalEstimateStr(cashModel: widget.cashModel, amountAndProfitModel: widget.amountAndProfitModel);
               final Color colorProvider = (balanceNumber >= 0) ? positiveColorGlobal : negativeColorGlobal;
               return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -1381,8 +1372,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                   return ValidButtonModel(isValid: true);
                 }
 
-                final isMoneyListLengthNotSameValue =
-                    (cashModelTemp.cashList[cashElementIndex].moneyList.length != widget.cashModel.cashList[cashElementIndex].moneyList.length);
+                final isMoneyListLengthNotSameValue = (cashModelTemp.cashList[cashElementIndex].moneyList.length != widget.cashModel.cashList[cashElementIndex].moneyList.length);
                 if (isMoneyListLengthNotSameValue) {
                   // return true;
                   return ValidButtonModel(isValid: true);
@@ -1450,15 +1440,13 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                   );
                 }
 
-                final double balanceNumber = totalEstimateCashMoneyStr(cashModel: cashModelTemp) -
-                    totalEstimateStr(cashModel: cashModelTemp, amountAndProfitModel: widget.amountAndProfitModel);
+                final double balanceNumber = totalEstimateCashMoneyStr(cashModel: cashModelTemp) - totalEstimateStr(cashModel: cashModelTemp, amountAndProfitModel: widget.amountAndProfitModel);
                 final Color colorProvider = (balanceNumber >= 0) ? positiveColorGlobal : negativeColorGlobal;
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text("$balanceIsStrGlobal ", style: textStyleGlobal(level: Level.large)),
-                    Text("${totalEstimateNumberToStr(totalNumber: balanceNumber, cashModel: cashModelTemp)} ",
-                        style: textStyleGlobal(level: Level.large, color: colorProvider)),
+                    Text("${totalEstimateNumberToStr(totalNumber: balanceNumber, cashModel: cashModelTemp)} ", style: textStyleGlobal(level: Level.large, color: colorProvider)),
                     moneyTypeDropDownWidget(),
                     // TextButton(
                     //     onPressed: () {
@@ -1542,17 +1530,14 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                         if (rateModel != null) {
                           if (rateModel.buy != null && rateModel.sell != null) {
                             isMulti = moneyTypeElement == rateModel.rateType.first;
-                            averageRateNumber = (textEditingControllerToDouble(controller: rateModel.buy!.value)! +
-                                    textEditingControllerToDouble(controller: rateModel.sell!.value)!) /
-                                2;
+                            averageRateNumber = (textEditingControllerToDouble(controller: rateModel.buy!.value)! + textEditingControllerToDouble(controller: rateModel.sell!.value)!) / 2;
                           }
                         }
                         cashModelTemp.cashList.add(CashList(
                           isBuyRate: isMulti,
                           moneyType: moneyTypeElement!,
                           moneyList: [],
-                          averageRate: TextEditingController(
-                              text: formatAndLimitNumberTextGlobal(valueStr: averageRateNumber.toString(), isRound: true, isAllowZeroAtLast: false)),
+                          averageRate: TextEditingController(text: formatAndLimitNumberTextGlobal(valueStr: averageRateNumber.toString(), isRound: true, isAllowZeroAtLast: false)),
                         ));
                       }
                       setStateFromDialog(() {});
@@ -1584,9 +1569,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                   return Padding(
                     padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.normal)),
                     child: Row(children: [
-                      ((moneyTypeElement == null) || (moneyTypeElement == cashModelTemp.mergeBy))
-                          ? Container()
-                          : Expanded(flex: flexValueGlobal, child: amountTextFieldWidget()),
+                      ((moneyTypeElement == null) || (moneyTypeElement == cashModelTemp.mergeBy)) ? Container() : Expanded(flex: flexValueGlobal, child: amountTextFieldWidget()),
                       Expanded(flex: flexTypeGlobal, child: moneyTypeDropDownWidget())
                     ]),
                   );
@@ -1679,8 +1662,8 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                         return ValidButtonModel(isValid: false, error: "View only mode.");
                       }
 
-                      if(widget.isAdminEditing) {
-                        return ValidButtonModel(isValid: false, error: "Admin editing mode.");    
+                      if (widget.isAdminEditing) {
+                        return ValidButtonModel(isValid: false, error: "Admin editing mode.");
                       }
 
                       return ValidButtonModel(isValid: true);
@@ -1702,8 +1685,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
 
                 Widget moneyListWidget() {
                   return Column(children: [
-                    for (int moneyIndex = 0; moneyIndex < cashModelTemp.cashList[matchIndex].moneyList.length; moneyIndex++)
-                      textFieldMoneyTypeAndDeleteWidget(moneyIndex: moneyIndex),
+                    for (int moneyIndex = 0; moneyIndex < cashModelTemp.cashList[matchIndex].moneyList.length; moneyIndex++) textFieldMoneyTypeAndDeleteWidget(moneyIndex: moneyIndex),
                   ]);
                 }
 
@@ -1711,16 +1693,12 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
                     ? Container()
                     : Expanded(
                         child: SingleChildScrollView(
-                          child: Padding(
-                              padding: EdgeInsets.all(paddingSizeGlobal(level: Level.normal)),
-                              child: Column(children: [moneyListWidget(), paddingBottomAddButtonWidget()])),
+                          child: Padding(padding: EdgeInsets.all(paddingSizeGlobal(level: Level.normal)), child: Column(children: [moneyListWidget(), paddingBottomAddButtonWidget()])),
                         ),
                       );
               }
 
-              return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [scrollTextProfitWidget(), moneyTypeByMoneyTypeWidget(), rateAndMoneyTypeWidget(), valueAndMoneyTypeListWidget()]);
+              return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [scrollTextProfitWidget(), moneyTypeByMoneyTypeWidget(), rateAndMoneyTypeWidget(), valueAndMoneyTypeListWidget()]);
             }
 
             actionDialogSetStateGlobal(
@@ -1738,17 +1716,13 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
               ? Container()
               : customTotalListWidget(
                   titleStr: estimateStrGlobal,
-                  totalListWidget: [
-                    CustomButtonGlobal(sizeBoxWidth: sizeBoxWidthGlobal, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable)
-                  ],
+                  totalListWidget: [CustomButtonGlobal(sizeBoxWidth: sizeBoxWidthGlobal, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable)],
                 );
         }
 
         final bool isShowTotalList = (isShowCard() || widget.amountAndProfitModel.isNotEmpty);
 
-        return isShowTotalList
-            ? SingleChildScrollView(child: Column(children: [estimateWidget(), totalAndProfitListWidget(), cardStockListWidget(), printMoneyAndCard()]))
-            : null;
+        return isShowTotalList ? SingleChildScrollView(child: Column(children: [estimateWidget(), totalAndProfitListWidget(), cardStockListWidget(), printMoneyAndCard()])) : null;
       }
 
       void topFunction() {}
@@ -1799,8 +1773,7 @@ class _HistoryEmployeeSideMenuState extends State<HistoryEmployeeSideMenu> {
         customRowBetweenHeaderAndBodyWidget: customRowBetweenHeaderAndBodyWidget(),
         topFunction: topFunction,
         bottomFunction: bottomFunction,
-        historyAsyncOnTapFunction:
-            ((widget.isCurrentDate || !widget.isNotViewOnly) && widget.isForceShowHistory) ? () => historyAsyncOnTapFunction(isNeedHistory: true) : null,
+        historyAsyncOnTapFunction: ((widget.isCurrentDate || !widget.isNotViewOnly) && widget.isForceShowHistory) ? () => historyAsyncOnTapFunction(isNeedHistory: true) : null,
         isValidHistoryAsyncOnTap: isValidHistoryAsyncOnTap(),
         isShowSeeMoreWidget: !outOfDataQueryHistoryList,
       );

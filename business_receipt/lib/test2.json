@@ -1,1086 +1,163 @@
-profile_employee: {
-    "name": "e",
-    "bio": "",
-    "sup_id": "DapjH",
-    "password": "123",
-    "display_business_option": {
-        "exchange_setting": {
-            "exchange_option": true,
-            "exchange_count": 5,
-            "exchange_percentage_count": 5
+{
+    "count_target_date_list": [
+        {
+            "start_date": "2024-07-01T00:00:00.000Z",
+            "end_date": "2024-07-02T00:00:00.000Z",
+            "total_count": 0
         },
-        "sell_card_setting": {
-            "sell_card_option": true,
-            "sell_card_count": 2,
-            "sell_card_percentage_count": 0.5585
+        {
+            "start_date": "2024-07-02T00:00:00.000Z",
+            "end_date": "2024-07-03T00:00:00.000Z",
+            "total_count": 0
         },
-        "outsider_borrowing_or_lending_setting": {
-            "outsider_borrowing_or_lending_option": false,
-            "outsider_borrowing_or_lending_count": 1,
-            "outsider_borrowing_or_lending_percentage_count": 0
+        {
+            "start_date": "2024-07-03T00:00:00.000Z",
+            "end_date": "2024-07-04T00:00:00.000Z",
+            "total_count": 0
         },
-        "give_money_to_mat_setting": {
-            "give_money_to_mat_option": false,
-            "give_money_to_mat_count": 0,
-            "give_money_to_mat_percentage_count": 0
+        {
+            "start_date": "2024-07-04T00:00:00.000Z",
+            "end_date": "2024-07-05T00:00:00.000Z",
+            "total_count": 0
         },
-        "give_card_to_mat_setting": {
-            "give_card_to_mat_option": false,
-            "give_card_to_mat_count": 0,
-            "give_card_to_mat_percentage_count": 0
+        {
+            "start_date": "2024-07-05T00:00:00.000Z",
+            "end_date": "2024-07-06T00:00:00.000Z",
+            "total_count": 0
         },
-        "rate_setting": {
-            "rate_option": true
+        {
+            "start_date": "2024-07-06T00:00:00.000Z",
+            "end_date": "2024-07-07T00:00:00.000Z",
+            "total_count": 0
         },
-        "add_card_stock_setting": {
-            "add_card_stock_option": true
+        {
+            "start_date": "2024-07-07T00:00:00.000Z",
+            "end_date": "2024-07-08T00:00:00.000Z",
+            "total_count": 0
         },
-        "other_in_or_out_come_setting": {
-            "other_in_or_out_come_option": true,
-            "other_in_or_out_come_count": 2,
-            "other_in_or_out_come_percentage_count": 0
+        {
+            "start_date": "2024-07-08T00:00:00.000Z",
+            "end_date": "2024-07-09T00:00:00.000Z",
+            "total_count": 0
         },
-        "import_from_excel_setting": {
-            "import_from_excel_option": true,
+        {
+            "start_date": "2024-07-09T00:00:00.000Z",
+            "end_date": "2024-07-10T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-10T00:00:00.000Z",
+            "end_date": "2024-07-11T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-11T00:00:00.000Z",
+            "end_date": "2024-07-12T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-12T00:00:00.000Z",
+            "end_date": "2024-07-13T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-13T00:00:00.000Z",
+            "end_date": "2024-07-14T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-14T00:00:00.000Z",
+            "end_date": "2024-07-15T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-15T00:00:00.000Z",
+            "end_date": "2024-07-16T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-16T00:00:00.000Z",
+            "end_date": "2024-07-17T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-17T00:00:00.000Z",
+            "end_date": "2024-07-18T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-18T00:00:00.000Z",
+            "end_date": "2024-07-19T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-19T00:00:00.000Z",
+            "end_date": "2024-07-20T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-20T00:00:00.000Z",
+            "end_date": "2024-07-21T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-21T00:00:00.000Z",
+            "end_date": "2024-07-22T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-22T00:00:00.000Z",
+            "end_date": "2024-07-23T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-23T00:00:00.000Z",
+            "end_date": "2024-07-24T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-24T00:00:00.000Z",
+            "end_date": "2024-07-25T00:00:00.000Z",
+            "total_count": 17,
             "excel_count": 9,
-            "excel_percentage_count": 0
+            "transfer_count": 1,
+            "sell_card_count": 2,
+            "exchange_count": 5
         },
-        "mission_setting": {
-            "mission_option": false
+        {
+            "start_date": "2024-07-25T00:00:00.000Z",
+            "end_date": "2024-07-26T00:00:00.000Z",
+            "total_count": 0
         },
-        "print_other_note_setting": {
-            "print_other_note_option": false
+        {
+            "start_date": "2024-07-26T00:00:00.000Z",
+            "end_date": "2024-07-27T00:00:00.000Z",
+            "total_count": 0
         },
-        "transfer_setting": {
-            "transfer_option": true,
-            "transfer_count": 2,
-            "transfer_percentage_count": 2
+        {
+            "start_date": "2024-07-27T00:00:00.000Z",
+            "end_date": "2024-07-28T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-28T00:00:00.000Z",
+            "end_date": "2024-07-29T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-29T00:00:00.000Z",
+            "end_date": "2024-07-30T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-30T00:00:00.000Z",
+            "end_date": "2024-07-31T00:00:00.000Z",
+            "total_count": 0
+        },
+        {
+            "start_date": "2024-07-31T00:00:00.000Z",
+            "end_date": "2024-08-01T00:00:00.000Z",
+            "total_count": 0
         }
-    },
-    "salary_calculation": {
-        "start_date": "1000-01-01T07:30:00.000Z",
-        "end_date": "1000-01-01T23:50:00.000Z",
-        "money_type": "USD",
-        "earning_for_hour": 0.5,
-        "max_pay_amount": 15,
-        "earning_for_invoice": null,
-        "earning_for_money_in_used": null,
-        "advance_salary_list": [
-            {
-                "invoice_type": "exchange",
-                "earning_for_invoice": {
-                    "pay_amount": 0.01,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.02,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            },
-            {
-                "invoice_type": "sell_card",
-                "earning_for_invoice": {
-                    "pay_amount": 0.011,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.021,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            },
-            {
-                "invoice_type": "transfer",
-                "earning_for_invoice": {
-                    "pay_amount": 0.012,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.022,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            },
-            {
-                "invoice_type": "excel",
-                "earning_for_invoice": {
-                    "pay_amount": 0.013,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.023,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            }
-        ]
-    },
-    "_id": "66a11e2f7896b80012c83333"
-},
-display_business_option: {
-    "exchange_setting": {
-        "exchange_option": true,
-        "exchange_count": 5,
-        "exchange_percentage_count": 5
-    },
-    "sell_card_setting": {
-        "sell_card_option": true,
-        "sell_card_count": 2,
-        "sell_card_percentage_count": 0.5585
-    },
-    "outsider_borrowing_or_lending_setting": {
-        "outsider_borrowing_or_lending_option": false,
-        "outsider_borrowing_or_lending_count": 1,
-        "outsider_borrowing_or_lending_percentage_count": 0
-    },
-    "give_money_to_mat_setting": {
-        "give_money_to_mat_option": false,
-        "give_money_to_mat_count": 0,
-        "give_money_to_mat_percentage_count": 0
-    },
-    "give_card_to_mat_setting": {
-        "give_card_to_mat_option": false,
-        "give_card_to_mat_count": 0,
-        "give_card_to_mat_percentage_count": 0
-    },
-    "rate_setting": {
-        "rate_option": true
-    },
-    "add_card_stock_setting": {
-        "add_card_stock_option": true
-    },
-    "other_in_or_out_come_setting": {
-        "other_in_or_out_come_option": true,
-        "other_in_or_out_come_count": 2,
-        "other_in_or_out_come_percentage_count": 0
-    },
-    "import_from_excel_setting": {
-        "import_from_excel_option": true,
-        "excel_count": 9,
-        "excel_percentage_count": 0
-    },
-    "mission_setting": {
-        "mission_option": false
-    },
-    "print_other_note_setting": {
-        "print_other_note_option": false
-    },
-    "transfer_setting": {
-        "transfer_option": true,
-        "transfer_count": 2,
-        "transfer_percentage_count": 2
-    }
-} 
-amount_and_profit: [
-    {
-        "money_type": "USD",
-        "amount": 1845,
-        "amount_in_used": 12816.720000000001,
-        "profit": 25.5220425,
-        "exchange": {
-            "amount_in_used": 500,
-            "profit": 0
-        },
-        "sell_card": {
-            "amount_in_used": 0,
-            "profit": 0.12000000000000001
-        },
-        "transfer": {
-            "amount_in_used": 2280.5,
-            "profit": 20.25
-        },
-        "excel": {
-            "amount_in_used": 10036.220000000001,
-            "profit": 5.1520425
-        }
-    },
-    {
-        "money_type": "KHR",
-        "amount": 10226000,
-        "amount_in_used": 1477100,
-        "profit": 800,
-        "exchange": {
-            "amount_in_used": 1437700,
-            "profit": 800
-        },
-        "sell_card": {
-            "amount_in_used": 39400,
-            "profit": 0
-        }
-    },
-    {
-        "money_type": "THB",
-        "amount": 2498,
-        "amount_in_used": 6792,
-        "profit": 3,
-        "exchange": {
-            "amount_in_used": 5412,
-            "profit": 3
-        },
-        "sell_card": {
-            "amount_in_used": 1380,
-            "profit": 0
-        }
-    }
-],
-salary_last: [
-    {
-        "salary_list": [
-            {
-                "_id": "66a11e837896b80012c833a5",
-                "start_date": "2024-07-24T22:32:18.986Z",
-                "salary_calculation": {
-                    "earning_for_invoice": null,
-                    "earning_for_money_in_used": null,
-                    "start_date": "1000-01-01T07:30:00.000Z",
-                    "end_date": "1000-01-01T23:50:00.000Z",
-                    "money_type": "USD",
-                    "earning_for_hour": 0.5,
-                    "max_pay_amount": 15,
-                    "advance_salary_list": [
-                        {
-                            "invoice_type": "exchange",
-                            "earning_for_invoice": {
-                                "pay_amount": 0.01,
-                                "combine_money_in_used": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 100
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 400000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 3000
-                                    }
-                                ]
-                            },
-                            "earning_for_money_in_used": {
-                                "pay_amount": 0.02,
-                                "money_list": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 1000
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 4000000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 30000
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "invoice_type": "sell_card",
-                            "earning_for_invoice": {
-                                "pay_amount": 0.011,
-                                "combine_money_in_used": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 100
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 400000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 3000
-                                    }
-                                ]
-                            },
-                            "earning_for_money_in_used": {
-                                "pay_amount": 0.021,
-                                "money_list": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 1000
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 4000000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 30000
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "invoice_type": "transfer",
-                            "earning_for_invoice": {
-                                "pay_amount": 0.012,
-                                "combine_money_in_used": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 100
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 400000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 3000
-                                    }
-                                ]
-                            },
-                            "earning_for_money_in_used": {
-                                "pay_amount": 0.022,
-                                "money_list": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 1000
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 4000000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 30000
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "invoice_type": "excel",
-                            "earning_for_invoice": {
-                                "pay_amount": 0.013,
-                                "combine_money_in_used": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 100
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 400000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 3000
-                                    }
-                                ]
-                            },
-                            "earning_for_money_in_used": {
-                                "pay_amount": 0.023,
-                                "money_list": [
-                                    {
-                                        "money_type": "USD",
-                                        "money_amount": 1000
-                                    },
-                                    {
-                                        "money_type": "KHR",
-                                        "money_amount": 4000000
-                                    },
-                                    {
-                                        "money_type": "THB",
-                                        "money_amount": 30000
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                },
-                "end_date": "2024-07-24T23:59:59.999Z",
-                "remark": ""
-            }
-        ],
-        "date": "24-07-2024",
-        "date_without_format": "2024-07-24T00:00:00.000Z",
-        "amount_and_profit": [
-            {
-                "money_type": "USD",
-                "amount": 1845,
-                "amount_in_used": 12816.720000000001,
-                "profit": 25.5220425,
-                "exchange": {
-                    "amount_in_used": 500,
-                    "profit": 0
-                },
-                "sell_card": {
-                    "amount_in_used": 0,
-                    "profit": 0.12000000000000001
-                },
-                "transfer": {
-                    "amount_in_used": 2280.5,
-                    "profit": 20.25
-                },
-                "excel": {
-                    "amount_in_used": 10036.220000000001,
-                    "profit": 5.1520425
-                }
-            },
-            {
-                "money_type": "KHR",
-                "amount": 10226000,
-                "amount_in_used": 1477100,
-                "profit": 800,
-                "exchange": {
-                    "amount_in_used": 1437700,
-                    "profit": 800
-                },
-                "sell_card": {
-                    "amount_in_used": 39400,
-                    "profit": 0
-                }
-            },
-            {
-                "money_type": "THB",
-                "amount": 2498,
-                "amount_in_used": 6792,
-                "profit": 3,
-                "exchange": {
-                    "amount_in_used": 5412,
-                    "profit": 3
-                },
-                "sell_card": {
-                    "amount_in_used": 1380,
-                    "profit": 0
-                }
-            }
-        ],
-        "profile_employee": {
-            "name": "e",
-            "bio": "",
-            "sup_id": "DapjH",
-            "password": "123",
-            "display_business_option": {
-                "exchange_setting": {
-                    "exchange_option": true,
-                    "exchange_count": 5,
-                    "exchange_percentage_count": 5
-                },
-                "sell_card_setting": {
-                    "sell_card_option": true,
-                    "sell_card_count": 2,
-                    "sell_card_percentage_count": 0.5585
-                },
-                "outsider_borrowing_or_lending_setting": {
-                    "outsider_borrowing_or_lending_option": false,
-                    "outsider_borrowing_or_lending_count": 1,
-                    "outsider_borrowing_or_lending_percentage_count": 0
-                },
-                "give_money_to_mat_setting": {
-                    "give_money_to_mat_option": false,
-                    "give_money_to_mat_count": 0,
-                    "give_money_to_mat_percentage_count": 0
-                },
-                "give_card_to_mat_setting": {
-                    "give_card_to_mat_option": false,
-                    "give_card_to_mat_count": 0,
-                    "give_card_to_mat_percentage_count": 0
-                },
-                "rate_setting": {
-                    "rate_option": true
-                },
-                "add_card_stock_setting": {
-                    "add_card_stock_option": true
-                },
-                "other_in_or_out_come_setting": {
-                    "other_in_or_out_come_option": true,
-                    "other_in_or_out_come_count": 2,
-                    "other_in_or_out_come_percentage_count": 0
-                },
-                "import_from_excel_setting": {
-                    "import_from_excel_option": true,
-                    "excel_count": 9,
-                    "excel_percentage_count": 0
-                },
-                "mission_setting": {
-                    "mission_option": false
-                },
-                "print_other_note_setting": {
-                    "print_other_note_option": false
-                },
-                "transfer_setting": {
-                    "transfer_option": true,
-                    "transfer_count": 2,
-                    "transfer_percentage_count": 2
-                }
-            },
-            "salary_calculation": {
-                "start_date": "1000-01-01T07:30:00.000Z",
-                "end_date": "1000-01-01T23:50:00.000Z",
-                "money_type": "USD",
-                "earning_for_hour": 0.5,
-                "max_pay_amount": 15,
-                "earning_for_invoice": null,
-                "earning_for_money_in_used": null,
-                "advance_salary_list": [
-                    {
-                        "invoice_type": "exchange",
-                        "earning_for_invoice": {
-                            "pay_amount": 0.01,
-                            "combine_money_in_used": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 100
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 400000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 3000
-                                }
-                            ]
-                        },
-                        "earning_for_money_in_used": {
-                            "pay_amount": 0.02,
-                            "money_list": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 1000
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 4000000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 30000
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "invoice_type": "sell_card",
-                        "earning_for_invoice": {
-                            "pay_amount": 0.011,
-                            "combine_money_in_used": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 100
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 400000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 3000
-                                }
-                            ]
-                        },
-                        "earning_for_money_in_used": {
-                            "pay_amount": 0.021,
-                            "money_list": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 1000
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 4000000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 30000
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "invoice_type": "transfer",
-                        "earning_for_invoice": {
-                            "pay_amount": 0.012,
-                            "combine_money_in_used": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 100
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 400000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 3000
-                                }
-                            ]
-                        },
-                        "earning_for_money_in_used": {
-                            "pay_amount": 0.022,
-                            "money_list": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 1000
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 4000000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 30000
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "invoice_type": "excel",
-                        "earning_for_invoice": {
-                            "pay_amount": 0.013,
-                            "combine_money_in_used": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 100
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 400000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 3000
-                                }
-                            ]
-                        },
-                        "earning_for_money_in_used": {
-                            "pay_amount": 0.023,
-                            "money_list": [
-                                {
-                                    "money_type": "USD",
-                                    "money_amount": 1000
-                                },
-                                {
-                                    "money_type": "KHR",
-                                    "money_amount": 4000000
-                                },
-                                {
-                                    "money_type": "THB",
-                                    "money_amount": 30000
-                                }
-                            ]
-                        }
-                    }
-                ]
-            },
-            "_id": "66a11e2f7896b80012c83333"
-        }
-    }
-],
-salary_history: {
-    "_id": "66a11e837896b80012c833a5",
-    "start_date": "2024-07-24T22:32:18.986Z",
-    "salary_calculation": {
-        "earning_for_invoice": null,
-        "earning_for_money_in_used": null,
-        "start_date": "1000-01-01T07:30:00.000Z",
-        "end_date": "1000-01-01T23:50:00.000Z",
-        "money_type": "USD",
-        "earning_for_hour": 0.5,
-        "max_pay_amount": 15,
-        "advance_salary_list": [
-            {
-                "invoice_type": "exchange",
-                "earning_for_invoice": {
-                    "pay_amount": 0.01,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.02,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            },
-            {
-                "invoice_type": "sell_card",
-                "earning_for_invoice": {
-                    "pay_amount": 0.011,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.021,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            },
-            {
-                "invoice_type": "transfer",
-                "earning_for_invoice": {
-                    "pay_amount": 0.012,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.022,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            },
-            {
-                "invoice_type": "excel",
-                "earning_for_invoice": {
-                    "pay_amount": 0.013,
-                    "combine_money_in_used": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 100
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 400000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 3000
-                        }
-                    ]
-                },
-                "earning_for_money_in_used": {
-                    "pay_amount": 0.023,
-                    "money_list": [
-                        {
-                            "money_type": "USD",
-                            "money_amount": 1000
-                        },
-                        {
-                            "money_type": "KHR",
-                            "money_amount": 4000000
-                        },
-                        {
-                            "money_type": "THB",
-                            "money_amount": 30000
-                        }
-                    ]
-                }
-            }
-        ]
-    },
-    "end_date": "2024-07-24T23:59:59.999Z",
-    "remark": ""
-},
-advance_salary_list: [
-    {
-        "invoice_type": "exchange",
-        "earning_for_invoice": {
-            "pay_amount": 0.01,
-            "combine_money_in_used": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 100
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 400000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 3000
-                }
-            ]
-        },
-        "earning_for_money_in_used": {
-            "pay_amount": 0.02,
-            "money_list": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 1000
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 4000000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 30000
-                }
-            ]
-        }
-    },
-    {
-        "invoice_type": "sell_card",
-        "earning_for_invoice": {
-            "pay_amount": 0.011,
-            "combine_money_in_used": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 100
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 400000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 3000
-                }
-            ]
-        },
-        "earning_for_money_in_used": {
-            "pay_amount": 0.021,
-            "money_list": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 1000
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 4000000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 30000
-                }
-            ]
-        }
-    },
-    {
-        "invoice_type": "transfer",
-        "earning_for_invoice": {
-            "pay_amount": 0.012,
-            "combine_money_in_used": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 100
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 400000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 3000
-                }
-            ]
-        },
-        "earning_for_money_in_used": {
-            "pay_amount": 0.022,
-            "money_list": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 1000
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 4000000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 30000
-                }
-            ]
-        }
-    },
-    {
-        "invoice_type": "excel",
-        "earning_for_invoice": {
-            "pay_amount": 0.013,
-            "combine_money_in_used": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 100
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 400000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 3000
-                }
-            ]
-        },
-        "earning_for_money_in_used": {
-            "pay_amount": 0.023,
-            "money_list": [
-                {
-                    "money_type": "USD",
-                    "money_amount": 1000
-                },
-                {
-                    "money_type": "KHR",
-                    "money_amount": 4000000
-                },
-                {
-                    "money_type": "THB",
-                    "money_amount": 30000
-                }
-            ]
-        }
-    }
-]
+    ]
+}

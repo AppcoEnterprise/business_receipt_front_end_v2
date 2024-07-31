@@ -75,7 +75,6 @@ Future<void> getHistoryByDateEmployeeGlobal({
     );
     final bool isValidQuery = checkValidateResponseAdminOrEmployee(response: response, context: context);
     if (response.data["is_existed"]) {
-      print("response.data => ${json.encode(response.data)}");
       historyList.addAll(historyModelListFromJson(str: response.data["history_list"]));
       final CashModel cashModelTemp = cashModelFromJson(str: response.data["cash"]);
       cashModel.mergeBy = cashModelTemp.mergeBy;
@@ -306,7 +305,7 @@ Future<void> deleteInvoiceEmployee({
   final bool hasInternetAccess = await InternetConnection().hasInternetAccess;
   if (hasInternetAccess) {
     final Response responseCheckIsRefresh = await dioGlobal.get(
-      '${endPointGlobal}check_is_deleting_and_setting_setting_employee',
+      '${endPointGlobal}check_is_deleting_and_setting_employee',
       queryParameters: {
         'admin_id': profileModelAdminGlobal!.id,
         'employee_id': profileModelEmployeeGlobal!.id,

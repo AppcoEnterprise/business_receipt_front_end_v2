@@ -1066,7 +1066,6 @@ class _TransferEmployeeSideMenuState extends State<TransferEmployeeSideMenu> {
         }
 
         void setFee({required bool isSetEditFeeFalse, required MoneyListTransfer moneyListTransfer, required bool isSetFeeFirst}) {
-          print("$selectedMoneyAndDateIndex != -1 => ${selectedMoneyAndDateIndex != -1}");
           if (selectedMoneyAndDateIndex != -1) {
             if (moneyListTransfer.value.text.isNotEmpty && (moneyListTransfer.moneyType != null)) {
               if (isSetEditFeeFalse) {
@@ -1078,7 +1077,6 @@ class _TransferEmployeeSideMenuState extends State<TransferEmployeeSideMenu> {
                 moneyType: moneyListTransfer.moneyType!,
                 isTransfer: isTransfer,
               );
-              print("feeList.isNotEmpty => ${feeList.isNotEmpty}");
               if (feeList.isNotEmpty) {
                 if (!moneyListTransfer.isEditFee && isSetFeeFirst) {
                   moneyListTransfer.discountFee.text = feeList.first;
@@ -1088,14 +1086,10 @@ class _TransferEmployeeSideMenuState extends State<TransferEmployeeSideMenu> {
                   moneyType: moneyListTransfer.moneyType!,
                   partnerId: transferOrderTemp.partner.nameAndInformationId,
                 );
-                print("moneyListTransfer.discountFee.text.isNotEmpty => ${moneyListTransfer.discountFee.text.isNotEmpty}");
                 if (moneyListTransfer.discountFee.text.isNotEmpty) {
                   final double discountFee = textEditingControllerToDouble(controller: moneyListTransfer.discountFee)!;
                   moneyListTransfer.profit = discountFee - (moneyListTransfer.fee! * (1 - (percentage / 100)));
-                  print("$discountFee - (${moneyListTransfer.fee} * (1 - ($percentage / 100))) = ${discountFee - (moneyListTransfer.fee! * (1 - (percentage / 100)))}");
                 }
-                print("moneyListTransfer.profit: ${moneyListTransfer.profit}");
-                print("===========================================");
               }
             }
           }
@@ -1930,7 +1924,6 @@ class _TransferEmployeeSideMenuState extends State<TransferEmployeeSideMenu> {
             Location(color: ColorEnum.blue, title: "button name", subtitle: "save button"),
           ]),
         );
-        print("transferOrderClone: ${json.encode(transferOrderTemp.toJson())}");
         updateTransferToDBOrPrint(isPrint: false);
       }
 

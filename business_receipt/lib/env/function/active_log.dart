@@ -206,7 +206,7 @@ Widget activeLogListWidget({required List<ActiveLogModel> activeLogModelList}) {
         return Column(children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(height: hight, width: 2, color: Colors.black),
-            Text(" ${secondNumberToHMSStr(second)}", style: textStyleGlobal(level: Level.normal)),
+            Text(" ${hhMmSsDuration(Duration(seconds: second))}", style: textStyleGlobal(level: Level.normal)),
           ]),
           drawLineGlobal(),
         ]);

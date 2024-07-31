@@ -338,6 +338,7 @@ const String totalOfStrGlobal = "Total of";
 const String exchangeProfitStrGlobal = "Exchange Profit";
 const String cardProfitStrGlobal = "Card Profit";
 const String excelProfitStrGlobal = "Excel Profit";
+const String transferProfitStrGlobal = "Transfer Profit";
 const String mergeExchangeAndCardAndExcelProfitStrGlobal = "Merge Exchange And Card And Excel Profit";
 const String mergeExchangeAndCardAndExcelCountStrGlobal = "Merge Exchange And Card And Excel Count";
 const String moneyTypeStrGlobal = "Money Type";
