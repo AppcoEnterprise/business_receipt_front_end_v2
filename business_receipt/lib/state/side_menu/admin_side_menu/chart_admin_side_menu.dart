@@ -43,19 +43,6 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
   String? moneyType;
   // double detailWidth = 400;
   // double detailHeight = 340;
-  DateTypeEnum getDateTypeEnumByIndex({required int index}) {
-    switch (index) {
-      case 0:
-        return DateTypeEnum.day;
-      case 1:
-        return DateTypeEnum.month;
-      case 2:
-        return DateTypeEnum.year;
-      default:
-        return DateTypeEnum.all;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget bodyTemplateSideMenu() {
@@ -142,14 +129,14 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
       Future<void> calculateOnTapFunction() async {
         final DateTime currentDate = DateTime.now();
         DateTime? date;
-        if (dateTypeIndex == 0) {
+        if (getDateTypeEnumByIndex(index: dateTypeIndex) == DateTypeEnum.day) {
           date = await showDatePicker(
             context: context,
             initialDate: currentDate,
             firstDate: firstDateGlobal!,
             lastDate: currentDate,
           );
-        } else if (dateTypeIndex == 1) {
+        } else if (getDateTypeEnumByIndex(index: dateTypeIndex) == DateTypeEnum.month) {
           List<DateTime> dateTimeList = getMonthInYear(startDate: firstDateGlobal!, endDate: currentDate);
           int selectedDate = dateTimeList.length - 1;
           void cancelFunctionOnTap() {
@@ -158,9 +145,12 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
 
           Widget calculateCardDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
             Widget dateButtonWidget({required int dateIndex}) {
-              void onTapUnlessDisable() {}
+              void onTapUnlessDisable() {
+                selectedDate = dateIndex;
+                setStateFromDialog(() {});
+              }
               Widget insideSizeBoxWidget() {
-                return Text(formatDateYMToStr(date: dateTimeList[dateIndex]), style: textStyleGlobal(level: Level.normal, color: (selectedDate == dateIndex) ? Colors.black : Colors.white));
+                return Text(formatDateYMToStr(date: dateTimeList[dateIndex]), style: textStyleGlobal(level: Level.normal,  color: (selectedDate == dateIndex) ? Colors.black : Colors.white));
               }
 
               return Padding(
@@ -195,7 +185,7 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
             okFunctionOnTap: okFunctionOnTap,
             contentFunctionReturnWidget: calculateCardDialog,
           );
-        } else if (dateTypeIndex == 2) {
+        } else if (getDateTypeEnumByIndex(index: dateTypeIndex) == DateTypeEnum.year) {
           List<DateTime> dateTimeList = getYearInAllYear(startDate: firstDateGlobal!, endDate: currentDate);
           int selectedDate = dateTimeList.length - 1;
           void cancelFunctionOnTap() {
@@ -249,18 +239,13 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
                 Widget wallDetailWidget({required int xIndex}) {
                   final String profitStr = formatAndLimitNumberTextGlobal(
                     isRound: false,
-                    // isAddComma: true,
                     valueStr: chartProfitModelTemp!.upAndDownProfitList[xIndex].profitMerge.toString(),
-                    // isAllowZeroAtLast: false,
-                    // places: (place >= 0) ? (place * multiPlaceOfProfitNumberWhenPlaceMoreThan0) : placeOfProfitNumberWhenPlaceMoreThan0,
                   );
                   Widget invoiceDetailWidget({required String titleStr, required List<ProfitAndRateElement> profitList}) {
                     if (profitList.isEmpty) {
                       return Container();
                     } else {
                       Widget profitSeparateWidget({required int profitIndex}) {
-                        print("==========================================");
-                        print("${profitList[profitIndex].profit} == 0 => ${profitList[profitIndex].profit == 0}");
                         if (profitList[profitIndex].profit == 0) {
                           return Container();
                         } else {
@@ -307,7 +292,6 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
                           break;
                         }
                       }
-                      print("isAllZero => $isAllZero");
                       return isAllZero
                           ? Container()
                           : Padding(
@@ -363,13 +347,68 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
                   ]),
                 );
               } else if (chartTypeIndex == 1) {
-                
+                Widget wallDetailWidget({required int xIndex}) {
+                  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.normal)),
+                      child: Text(
+                        "Total Count: ${formatAndLimitNumberTextGlobal(valueStr: chartCountModelListTemp![xIndex].totalCount.toString(), isRound: false)}",
+                        style: textStyleGlobal(level: Level.normal),
+                      ),
+                    ),
+                    (chartCountModelListTemp[xIndex].exchangeCount == 0)
+                        ? Container()
+                        : Text(
+                            "Exchange Count: ${formatAndLimitNumberTextGlobal(valueStr: chartCountModelListTemp[xIndex].exchangeCount.toString(), isRound: false)}",
+                            style: textStyleGlobal(level: Level.normal),
+                          ),
+                    (chartCountModelListTemp[xIndex].sellCardCount == 0)
+                        ? Container()
+                        : Text(
+                            "Sell Card Count: ${formatAndLimitNumberTextGlobal(valueStr: chartCountModelListTemp[xIndex].sellCardCount.toString(), isRound: false)}",
+                            style: textStyleGlobal(level: Level.normal),
+                          ),
+                    (chartCountModelListTemp[xIndex].excelCount == 0)
+                        ? Container()
+                        : Text(
+                            "Excel Count: ${formatAndLimitNumberTextGlobal(valueStr: chartCountModelListTemp[xIndex].excelCount.toString(), isRound: false)}",
+                            style: textStyleGlobal(level: Level.normal),
+                          ),
+                    (chartCountModelListTemp[xIndex].transferCount == 0)
+                        ? Container()
+                        : Text(
+                            "Transfer Count: ${formatAndLimitNumberTextGlobal(valueStr: chartCountModelListTemp[xIndex].transferCount.toString(), isRound: false)}",
+                            style: textStyleGlobal(level: Level.normal),
+                          ),
+                  ]);
+                }
+
+                List<UpAndDownWallElement> upAndDownList = [];
+                for (int xIndex = 0; xIndex < chartCountModelListTemp!.length; xIndex++) {
+                  upAndDownList.add(UpAndDownWallElement(
+                    startDate: chartCountModelListTemp[xIndex].startDate,
+                    endDate: chartCountModelListTemp[xIndex].endDate,
+                    value: chartCountModelListTemp[xIndex].totalCount.toDouble(),
+                  ));
+                }
+
                 return SingleChildScrollView(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     Text("Count Invoices", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
-                    ChartUp(upList: chartCountModelListTemp!, dateTypeEnum: getDateTypeEnumByIndex(index: dateTypeIndex)),
+                    ChartUpAndDownWall(
+                      upAndDownList: upAndDownList,
+                      wallDetailWidget: wallDetailWidget,
+                      dateTypeEnum: getDateTypeEnumByIndex(index: dateTypeIndex),
+                      yTitleDetailStr: "invoices",
+                    ),
                   ]),
                 );
+                // return SingleChildScrollView(
+                //   child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                //     Text("Count Invoices", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
+                //     ChartUp(upList: chartCountModelListTemp!, dateTypeEnum: getDateTypeEnumByIndex(index: dateTypeIndex)),
+                //   ]),
+                // );
               }
               return Container();
             }

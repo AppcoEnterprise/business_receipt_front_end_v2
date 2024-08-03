@@ -80,6 +80,7 @@ Future<void> getSalaryListEmployeeGlobal({
     }
 
     final bool isValidQuery = checkValidateResponseAdminOrEmployee(response: response, context: context);
+    print(json.encode(response.data));
     salaryListEmployee.addAll(salaryModelTemp);
 
     if (isValidQuery) {

@@ -348,8 +348,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                   }
 
                   Widget categoryDetailExpandedWidget() {
-                    DateTime? deleteCategoryDateOrNull =
-                        ((selectedCategoryIndex == -1) || cardTemp.categoryList.isEmpty) ? null : cardTemp.categoryList[selectedCategoryIndex].deletedDate;
+                    DateTime? deleteCategoryDateOrNull = ((selectedCategoryIndex == -1) || cardTemp.categoryList.isEmpty) ? null : cardTemp.categoryList[selectedCategoryIndex].deletedDate;
                     Widget categoryDetailOrEmpty() {
                       Widget paddingColumnWidget() {
                         Widget columnWidget() {
@@ -368,8 +367,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                         alignment: Alignment.topCenter,
                                       )
                                     : scrollText(
-                                        textStr:
-                                            "$deleteAtStrGlobal ${formatFullDateToStr(date: deleteCategoryDateOrNull.add(const Duration(days: deleteAtDay)))}",
+                                        textStr: "$deleteAtStrGlobal ${formatFullDateToStr(date: deleteCategoryDateOrNull.add(const Duration(days: deleteAtDay)))}",
                                         textStyle: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold, color: Colors.red),
                                         alignment: Alignment.topCenter,
                                       ),
@@ -467,8 +465,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                 return isNoMainCardStock(categoryIndex: selectedCategoryIndex);
                               }
 
-                              return deleteButtonOrContainerWidget(
-                                  context: context, validModel: isValidToDelete(), level: Level.normal, onTapFunction: onTapFunction);
+                              return deleteButtonOrContainerWidget(context: context, validModel: isValidToDelete(), level: Level.normal, onTapFunction: onTapFunction);
                             }
 
                             Widget restoreButtonWidget() {
@@ -530,8 +527,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                 );
                               }
 
-                              return restoreButtonOrContainerWidget(
-                                  context: context, validModel: isValidToDelete(), level: Level.normal, onTapFunction: onTapFunction);
+                              return restoreButtonOrContainerWidget(context: context, validModel: isValidToDelete(), level: Level.normal, onTapFunction: onTapFunction);
                             }
 
                             return Row(children: [
@@ -564,32 +560,21 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                 List<List<bool>> isShowTextField2D = [];
 
                                 void convertSellPriceCardModelIntoTable() {
-                                  for (int sellPriceIndex = 0;
-                                      sellPriceIndex < cardTemp.categoryList[selectedCategoryIndex].sellPriceList.length;
-                                      sellPriceIndex++) {
+                                  for (int sellPriceIndex = 0; sellPriceIndex < cardTemp.categoryList[selectedCategoryIndex].sellPriceList.length; sellPriceIndex++) {
                                     List<TextEditingController> controller1D = [];
-                                    final TextEditingController startValue =
-                                        cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].startValue;
+                                    final TextEditingController startValue = cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].startValue;
                                     controller1D.add(startValue);
                                     final TextEditingController endValue = cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].endValue;
                                     controller1D.add(endValue);
                                     final TextEditingController price = cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].price;
                                     controller1D.add(price);
-                                    final TextEditingController moneyType =
-                                        TextEditingController(text: cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].moneyType);
+                                    final TextEditingController moneyType = TextEditingController(text: cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].moneyType);
                                     controller1D.add(moneyType);
-                                    final TextEditingController id =
-                                        TextEditingController(text: cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].id);
+                                    final TextEditingController id = TextEditingController(text: cardTemp.categoryList[selectedCategoryIndex].sellPriceList[sellPriceIndex].id);
                                     controller1D.add(id);
                                     textFieldController2D.add(controller1D);
 
-                                    final List<List<String>> menuItemStr2D = [
-                                      [],
-                                      [],
-                                      [],
-                                      moneyTypeOnlyList(moneyTypeDefault: moneyType.text, isNotCheckDeleted: true),
-                                      []
-                                    ];
+                                    final List<List<String>> menuItemStr2D = [[], [], [], moneyTypeOnlyList(moneyTypeDefault: moneyType.text, isNotCheckDeleted: true), []];
                                     menuItemStr3D.add(menuItemStr2D);
 
                                     final List<bool> isShowTextFieldList = [false, false, false, false, false];
@@ -624,8 +609,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                       if (cardTemp.categoryList[categoryIndex].sellPriceList[sellIndex].moneyType != null) {
                                         if (cardTemp.categoryList[categoryIndex].sellPriceList[sellIndex].moneyType!.isNotEmpty) {
                                           for (int limitIndex = 0; limitIndex < cardTemp.categoryList[categoryIndex].limitList.length; limitIndex++) {
-                                            if (cardTemp.categoryList[categoryIndex].limitList[limitIndex].moneyType ==
-                                                cardTemp.categoryList[categoryIndex].sellPriceList[sellIndex].moneyType) {
+                                            if (cardTemp.categoryList[categoryIndex].limitList[limitIndex].moneyType == cardTemp.categoryList[categoryIndex].sellPriceList[sellIndex].moneyType) {
                                               isExistOnSellMoneyType = true;
                                               break;
                                             }
@@ -643,8 +627,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                     for (int limitIndex = 0; limitIndex < cardTemp.categoryList[categoryIndex].limitList.length; limitIndex++) {
                                       bool isExistOnLimitMoneyType = false;
                                       for (int sellIndex = 0; sellIndex < cardTemp.categoryList[categoryIndex].sellPriceList.length; sellIndex++) {
-                                        if (cardTemp.categoryList[categoryIndex].limitList[limitIndex].moneyType ==
-                                            cardTemp.categoryList[categoryIndex].sellPriceList[sellIndex].moneyType) {
+                                        if (cardTemp.categoryList[categoryIndex].limitList[limitIndex].moneyType == cardTemp.categoryList[categoryIndex].sellPriceList[sellIndex].moneyType) {
                                           isExistOnLimitMoneyType = true;
                                           break;
                                         }
@@ -682,12 +665,8 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                       Widget insideSizeBoxWidget() {
                                         Widget employeeWidget() {
                                           final String? employeeIdStr = cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].employeeId;
-                                          final String? employeeNameStr =
-                                              cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].employeeName;
-                                          return scrollText(
-                                              textStr: "$employeeNameStr ($employeeIdStr)",
-                                              textStyle: textStyleGlobal(level: Level.normal),
-                                              alignment: Alignment.topLeft);
+                                          final String? employeeNameStr = cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].employeeName;
+                                          return scrollText(textStr: "$employeeNameStr ($employeeIdStr)", textStyle: textStyleGlobal(level: Level.normal), alignment: Alignment.topLeft);
                                         }
 
                                         Widget stockWidget() {
@@ -701,10 +680,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                             isRound: false,
                                             isAllowZeroAtLast: false,
                                           );
-                                          return scrollText(
-                                              textStr: "$stockCardStrGlobal: $stockStr/$maxStockStr",
-                                              textStyle: textStyleGlobal(level: Level.normal),
-                                              alignment: Alignment.topLeft);
+                                          return scrollText(textStr: "$stockCardStrGlobal: $stockStr/$maxStockStr", textStyle: textStyleGlobal(level: Level.normal), alignment: Alignment.topLeft);
                                         }
 
                                         Widget mainPriceWidget() {
@@ -715,45 +691,32 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                           );
                                           final String moneyTypeStr = cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].moneyType!;
 
-                                          return scrollText(
-                                              textStr: "$mainPriceCardStrGlobal: $priceStr $moneyTypeStr",
-                                              textStyle: textStyleGlobal(level: Level.normal),
-                                              alignment: Alignment.topLeft);
+                                          return scrollText(textStr: "$mainPriceCardStrGlobal: $priceStr $moneyTypeStr", textStyle: textStyleGlobal(level: Level.normal), alignment: Alignment.topLeft);
                                         }
 
                                         Widget rateListWidget() {
                                           Widget rateWidget({required int rateIndex}) {
-                                            final bool isBuyRate =
-                                                cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].isBuyRate!;
-                                            final List<String> rateType =
-                                                cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].rateType;
-                                            final String discountRateStr = cardTemp
-                                                .categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].discountValue.text;
-                                            final String rateStr = isBuyRate
-                                                ? "${rateType.first}$arrowStrGlobal${rateType.last}"
-                                                : "${rateType.last}$arrowStrGlobal${rateType.first}";
-                                            final String percentageRateStr =
-                                                cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].percentage.text;
+                                            final bool isBuyRate = cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].isBuyRate!;
+                                            final List<String> rateType = cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].rateType;
+                                            final String discountRateStr = cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].discountValue.text;
+                                            final String rateStr = isBuyRate ? "${rateType.first}$arrowStrGlobal${rateType.last}" : "${rateType.last}$arrowStrGlobal${rateType.first}";
+                                            final String percentageRateStr = cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList[rateIndex].percentage.text;
 
-                                            return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                                              Text("$percentageRateStr % | $rateStr: $discountRateStr", style: textStyleGlobal(level: Level.mini))
-                                            ]);
+                                            return Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [Text("$percentageRateStr % | $rateStr: $discountRateStr", style: textStyleGlobal(level: Level.mini))]);
                                           }
 
                                           return Column(children: [
-                                            for (int rateIndex = 0;
-                                                rateIndex < cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList.length;
-                                                rateIndex++)
+                                            for (int rateIndex = 0; rateIndex < cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].rateList.length; rateIndex++)
                                               rateWidget(rateIndex: rateIndex)
                                           ]);
                                         }
 
                                         Widget dateWidget() {
-                                          final String dateStr =
-                                              formatFullDateToStr(date: cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].date!);
+                                          final String dateStr = formatFullDateToStr(date: cardTemp.categoryList[selectedCategoryIndex].mainPriceList[mainCardIndex].date!);
 
-                                          return Row(
-                                              mainAxisAlignment: MainAxisAlignment.end, children: [Text(dateStr, style: textStyleGlobal(level: Level.mini))]);
+                                          return Row(mainAxisAlignment: MainAxisAlignment.end, children: [Text(dateStr, style: textStyleGlobal(level: Level.mini))]);
                                         }
 
                                         return Column(children: [employeeWidget(), stockWidget(), mainPriceWidget(), rateListWidget(), dateWidget()]);
@@ -807,9 +770,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                         isShowSeeMoreWidget: !cardTemp.categoryList[selectedCategoryIndex].outOfDataQueryCardMainStockList,
                                         topFunction: topFunction,
                                         inWrapWidgetList: [
-                                          for (int mainCardIndex = 0;
-                                              mainCardIndex < cardTemp.categoryList[selectedCategoryIndex].mainPriceList.length;
-                                              mainCardIndex++)
+                                          for (int mainCardIndex = 0; mainCardIndex < cardTemp.categoryList[selectedCategoryIndex].mainPriceList.length; mainCardIndex++)
                                             mainCardWidget(mainCardIndex: mainCardIndex)
                                         ],
                                       ),
@@ -883,17 +844,13 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                                     Expanded(
                                       child: Padding(
                                         padding: EdgeInsets.only(top: paddingSizeGlobal(level: Level.normal), right: paddingSizeGlobal(level: Level.mini)),
-                                        child: textFieldWidget(
-                                            contentStr: minimumStrGlobal,
-                                            controller: cardTemp.categoryList[selectedCategoryIndex].limitList[limitIndex].limit.first),
+                                        child: textFieldWidget(contentStr: minimumStrGlobal, controller: cardTemp.categoryList[selectedCategoryIndex].limitList[limitIndex].limit.first),
                                       ),
                                     ),
                                     Expanded(
                                       child: Padding(
                                         padding: EdgeInsets.only(top: paddingSizeGlobal(level: Level.normal), left: paddingSizeGlobal(level: Level.mini)),
-                                        child: textFieldWidget(
-                                            contentStr: maximumStrGlobal,
-                                            controller: cardTemp.categoryList[selectedCategoryIndex].limitList[limitIndex].limit.last),
+                                        child: textFieldWidget(contentStr: maximumStrGlobal, controller: cardTemp.categoryList[selectedCategoryIndex].limitList[limitIndex].limit.last),
                                       ),
                                     ),
                                   ])
@@ -904,8 +861,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
 
                               return Padding(
                                 padding: EdgeInsets.only(top: paddingSizeGlobal(level: Level.mini), right: paddingSizeGlobal(level: Level.mini)),
-                                child: CustomButtonGlobal(
-                                    sizeBoxWidth: sizeBoxWidthGlobal, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable),
+                                child: CustomButtonGlobal(sizeBoxWidth: sizeBoxWidthGlobal, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable),
                               );
                             }
 
@@ -914,16 +870,13 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                               child: Padding(
                                 padding: EdgeInsets.all(paddingSizeGlobal(level: Level.mini)),
                                 child: Row(children: [
-                                  for (int limitIndex = 0; limitIndex < cardTemp.categoryList[selectedCategoryIndex].limitList.length; limitIndex++)
-                                    limitWidget(limitIndex: limitIndex),
+                                  for (int limitIndex = 0; limitIndex < cardTemp.categoryList[selectedCategoryIndex].limitList.length; limitIndex++) limitWidget(limitIndex: limitIndex),
                                 ]),
                               ),
                             );
                           }
 
-                          return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [rowTextFieldAndDeleteButton(), limitPriceCardWidget(), Expanded(child: paddingTopTableWidget())]);
+                          return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [rowTextFieldAndDeleteButton(), limitPriceCardWidget(), Expanded(child: paddingTopTableWidget())]);
                         }
 
                         return Padding(padding: EdgeInsets.only(left: paddingSizeGlobal(level: Level.normal)), child: columnWidget());
@@ -959,17 +912,14 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
           void cancelFunctionOnTap() {
             void okFunction() {
               adminStopEditingSettingSocketIO(editSettingTypeEnum: EditSettingTypeEnum.card);
-              limitMainStockList(categoryCardModel: cardTemp.categoryList[selectedCategoryIndex]);
+              if (selectedCategoryIndex != -1) {
+                limitMainStockList(categoryCardModel: cardTemp.categoryList[selectedCategoryIndex]);
+              }
               closeDialogGlobal(context: context);
             }
 
             void cancelFunction() {}
-            confirmationDialogGlobal(
-                context: context,
-                okFunction: okFunction,
-                cancelFunction: cancelFunction,
-                titleStr: cancelEditingSettingGlobal,
-                subtitleStr: cancelEditingSettingConfirmGlobal);
+            confirmationDialogGlobal(context: context, okFunction: okFunction, cancelFunction: cancelFunction, titleStr: cancelEditingSettingGlobal, subtitleStr: cancelEditingSettingConfirmGlobal);
           }
 
           void saveFunctionOnTap() {
@@ -1052,8 +1002,8 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
               }
 
               if (selectedCategoryIndex != -1) {
-                final String companyNameStr = cardTemp.cardCompanyName.text;
-                final String categoryStr = cardTemp.categoryList[selectedCategoryIndex].category.text;
+                // final String companyNameStr = cardTemp.cardCompanyName.text;
+                // final String categoryStr = cardTemp.categoryList[selectedCategoryIndex].category.text;
                 for (int limitIndex = 0; limitIndex < cardTemp.categoryList[selectedCategoryIndex].limitList.length; limitIndex++) {
                   if (cardTemp.categoryList[selectedCategoryIndex].limitList[limitIndex].moneyType == null) {
                     // return false;
@@ -1337,8 +1287,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                     error: "Money type is empty.",
                   );
                 }
-                final double startValue =
-                    textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].startValue)!;
+                final double startValue = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].startValue)!;
                 final double endValue = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].endValue)!;
                 if (startValue == 0) {
                   // return false;
@@ -1407,15 +1356,13 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                   );
                 }
                 final int limitIndex = cardTemp.categoryList[categoryIndex].limitList.indexWhere((element) => (element.moneyType == moneyTypeTemp));
-                if (cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.first.text.isNotEmpty &&
-                    cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.last.text.isNotEmpty) {
+                if (cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.first.text.isNotEmpty && cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.last.text.isNotEmpty) {
                   final double startNumber = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.first)!;
                   final String startStr = cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.first.text;
                   final double lastNumber = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.last)!;
                   final String lastStr = cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.last.text;
                   final String priceStr = cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].price.text;
-                  final double priceNumber =
-                      textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].price)!;
+                  final double priceNumber = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].price)!;
                   if (!(startNumber <= priceNumber && priceNumber <= lastNumber)) {
                     // return false;
                     // return ValidButtonModel(
@@ -1588,29 +1535,24 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                 //   }
                 // }
 
-                final bool isSellPriceListLengthNotSameValue = (cardTemp.categoryList[categoryIndex].sellPriceList.length !=
-                    cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList.length);
+                final bool isSellPriceListLengthNotSameValue =
+                    (cardTemp.categoryList[categoryIndex].sellPriceList.length != cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList.length);
                 if (isSellPriceListLengthNotSameValue) {
                   // return true;
                   // return ValidButtonModel(isValid: true, errorStr: "");
                   return ValidButtonModel(isValid: true);
                 }
                 for (int sellPriceIndex = 0; sellPriceIndex < cardTemp.categoryList[categoryIndex].sellPriceList.length; sellPriceIndex++) {
-                  final double? startValueTemp =
-                      textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].startValue);
-                  final double? startValue = textEditingControllerToDouble(
-                      controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList[sellPriceIndex].startValue);
+                  final double? startValueTemp = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].startValue);
+                  final double? startValue = textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList[sellPriceIndex].startValue);
                   final bool isStartValueNotSameValue = (startValueTemp != startValue);
 
-                  final double? endValueTemp =
-                      textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].endValue);
-                  final double? endValue = textEditingControllerToDouble(
-                      controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList[sellPriceIndex].endValue);
+                  final double? endValueTemp = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].endValue);
+                  final double? endValue = textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList[sellPriceIndex].endValue);
                   final bool isEndValueNotSameValue = (endValueTemp != endValue);
 
                   final double? priceTemp = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].price);
-                  final double? price =
-                      textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList[sellPriceIndex].price);
+                  final double? price = textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].sellPriceList[sellPriceIndex].price);
                   final bool isPriceValueNotSameValue = (priceTemp != price);
 
                   final String moneyTypeTemp = cardTemp.categoryList[categoryIndex].sellPriceList[sellPriceIndex].moneyType!;
@@ -1624,8 +1566,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                   }
                 }
 
-                final isLimitListLengthNotSameValue =
-                    (cardTemp.categoryList[categoryIndex].limitList.length != cardModelListGlobal[cardIndex].categoryList[categoryIndex].limitList.length);
+                final isLimitListLengthNotSameValue = (cardTemp.categoryList[categoryIndex].limitList.length != cardModelListGlobal[cardIndex].categoryList[categoryIndex].limitList.length);
                 if (isLimitListLengthNotSameValue) {
                   // return true;
                   // return ValidButtonModel(isValid: true, errorStr: "");
@@ -1636,15 +1577,12 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                   final String moneyType = cardModelListGlobal[cardIndex].categoryList[categoryIndex].limitList[limitIndex].moneyType!;
                   final bool isMoneyTypeNotSameValue = (moneyTypeTemp != moneyType);
 
-                  final double? startValueTemp =
-                      textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.first);
-                  final double? startValue =
-                      textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].limitList[limitIndex].limit.first);
+                  final double? startValueTemp = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.first);
+                  final double? startValue = textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].limitList[limitIndex].limit.first);
                   final bool isStartValueNotSameValue = (startValueTemp != startValue);
 
                   final double? endValueTemp = textEditingControllerToDouble(controller: cardTemp.categoryList[categoryIndex].limitList[limitIndex].limit.last);
-                  final double? endValue =
-                      textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].limitList[limitIndex].limit.last);
+                  final double? endValue = textEditingControllerToDouble(controller: cardModelListGlobal[cardIndex].categoryList[categoryIndex].limitList[limitIndex].limit.last);
                   final bool isEndValueNotSameValue = (endValueTemp != endValue);
 
                   if (isMoneyTypeNotSameValue || isStartValueNotSameValue || isEndValueNotSameValue) {
@@ -1771,10 +1709,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                     Widget companyNameTextWidget() {
                       return Text(
                         companyName,
-                        style: textStyleGlobal(
-                            level: Level.large,
-                            fontWeight: FontWeight.bold,
-                            color: (deleteDateOrNull == null) ? defaultTextColorGlobal : deleteTextColorGlobal),
+                        style: textStyleGlobal(level: Level.large, fontWeight: FontWeight.bold, color: (deleteDateOrNull == null) ? defaultTextColorGlobal : deleteTextColorGlobal),
                       );
                     }
 
@@ -1831,11 +1766,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                 );
               }
 
-              return CustomButtonGlobal(
-                  sizeBoxWidth: sizeBoxWidthGlobal,
-                  sizeBoxHeight: sizeBoxHeightGlobal,
-                  insideSizeBoxWidget: insideSizeBoxWidget(),
-                  onTapUnlessDisable: onTapUnlessDisable);
+              return CustomButtonGlobal(sizeBoxWidth: sizeBoxWidthGlobal, sizeBoxHeight: sizeBoxHeightGlobal, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable);
             }
 
             return setWidthSizeBox();
@@ -1874,11 +1805,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
 
                   void cancelFunction() {}
                   confirmationDialogGlobal(
-                      context: context,
-                      okFunction: okFunction,
-                      cancelFunction: cancelFunction,
-                      titleStr: cancelEditingSettingGlobal,
-                      subtitleStr: cancelEditingSettingConfirmGlobal);
+                      context: context, okFunction: okFunction, cancelFunction: cancelFunction, titleStr: cancelEditingSettingGlobal, subtitleStr: cancelEditingSettingConfirmGlobal);
                 }
 
                 ValidButtonModel validSubCardCombineButtonModel({required CardCombineModel cardCombineModel, required int cardCombineIndex}) {
@@ -1986,13 +1913,12 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                               void onTapFunction() {}
 
                               void onChangedFunction({required String value, required int index}) {
-                                final int companyNameIndex = cardModelListGlobal.indexWhere((element) =>
-                                    (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyId)); //never equal -1
+                                final int companyNameIndex = cardModelListGlobal
+                                    .indexWhere((element) => (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyId)); //never equal -1
 
                                 cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].category =
                                     textEditingControllerToDouble(controller: cardModelListGlobal[companyNameIndex].categoryList[index].category);
-                                cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId =
-                                    cardModelListGlobal[companyNameIndex].categoryList[index].id;
+                                cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId = cardModelListGlobal[companyNameIndex].categoryList[index].id;
                                 cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].sellPrice = null;
                                 cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].sellPriceId = null;
                                 setStateFromDialog(() {});
@@ -2020,34 +1946,32 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
 
                             Widget sellPriceDropdown() {
                               List<String> sellPriceListStr() {
-                                final int companyNameIndex = cardModelListGlobal.indexWhere((element) =>
-                                    (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyId)); //never equal -1
+                                final int companyNameIndex = cardModelListGlobal
+                                    .indexWhere((element) => (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyId)); //never equal -1
 
-                                final int categoryIndex = cardModelListGlobal[companyNameIndex].categoryList.indexWhere((element) =>
-                                    (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId)); //never equal -1
+                                final int categoryIndex = cardModelListGlobal[companyNameIndex]
+                                    .categoryList
+                                    .indexWhere((element) => (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId)); //never equal -1
 
-                                return cardModelListGlobal[companyNameIndex]
-                                    .categoryList[categoryIndex]
-                                    .sellPriceList
-                                    .map((e) => sellPriceModelToStr(cardSellPriceListCardModel: e))
-                                    .toList();
+                                return cardModelListGlobal[companyNameIndex].categoryList[categoryIndex].sellPriceList.map((e) => sellPriceModelToStr(cardSellPriceListCardModel: e)).toList();
                               }
 
                               void onTapFunction() {}
 
                               void onChangedFunction({required String value, required int index}) {
-                                final int companyNameIndex = cardModelListGlobal.indexWhere((element) =>
-                                    (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyId)); //never equal -1
+                                final int companyNameIndex = cardModelListGlobal
+                                    .indexWhere((element) => (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyId)); //never equal -1
 
-                                final int categoryIndex = cardModelListGlobal[companyNameIndex].categoryList.indexWhere(
-                                    (element) => (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId));
+                                final int categoryIndex = cardModelListGlobal[companyNameIndex]
+                                    .categoryList
+                                    .indexWhere((element) => (element.id == cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId));
 
                                 // cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId =
 
                                 cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].sellPriceId =
                                     cardModelListGlobal[companyNameIndex].categoryList[categoryIndex].sellPriceList[index].id;
-                                cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].sellPrice = sellPriceModelToStr(
-                                    cardSellPriceListCardModel: cardModelListGlobal[companyNameIndex].categoryList[categoryIndex].sellPriceList[index]);
+                                cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].sellPrice =
+                                    sellPriceModelToStr(cardSellPriceListCardModel: cardModelListGlobal[companyNameIndex].categoryList[categoryIndex].sellPriceList[index]);
                                 setStateFromDialog(() {});
                               }
 
@@ -2066,12 +1990,8 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
 
                             return Row(children: [
                               Expanded(flex: 1, child: cardCompanyNameDropdown()),
-                              (cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyName == null)
-                                  ? Container()
-                                  : Expanded(flex: 1, child: categoryDropdown()),
-                              (cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId == null)
-                                  ? Container()
-                                  : Expanded(flex: 3, child: sellPriceDropdown()),
+                              (cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].cardCompanyName == null) ? Container() : Expanded(flex: 1, child: categoryDropdown()),
+                              (cardCombineModelListTemp[cardCombineIndex].cardList[subCardCombineIndex].categoryId == null) ? Container() : Expanded(flex: 3, child: sellPriceDropdown()),
                             ]);
                           }
 
@@ -2130,9 +2050,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                           padding: EdgeInsets.all(paddingSizeGlobal(level: Level.normal)),
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             nameTextFieldWidget(),
-                            for (int subCardCombineIndex = 0;
-                                subCardCombineIndex < cardCombineModelListTemp[cardCombineIndex].cardList.length;
-                                subCardCombineIndex++)
+                            for (int subCardCombineIndex = 0; subCardCombineIndex < cardCombineModelListTemp[cardCombineIndex].cardList.length; subCardCombineIndex++)
                               subCardCombineWidget(subCardCombineIndex: subCardCombineIndex),
                             addMoreSubCardCombineWidget(),
                           ]),
@@ -2169,8 +2087,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                     }
 
                     return [
-                      for (int cardCombineIndex = 0; cardCombineIndex < cardCombineModelListTemp.length; cardCombineIndex++)
-                        cardCombineWidget(cardCombineIndex: cardCombineIndex),
+                      for (int cardCombineIndex = 0; cardCombineIndex < cardCombineModelListTemp.length; cardCombineIndex++) cardCombineWidget(cardCombineIndex: cardCombineIndex),
                       addMoreCardCombineWidget(),
                     ];
                   }
@@ -2273,11 +2190,7 @@ class _CardAdminSideMenuState extends State<CardAdminSideMenu> {
                 );
               }
 
-              return CustomButtonGlobal(
-                  sizeBoxWidth: sizeBoxWidthGlobal,
-                  sizeBoxHeight: sizeBoxHeightGlobal,
-                  insideSizeBoxWidget: insideSizeBoxWidget(),
-                  onTapUnlessDisable: onTapUnlessDisable);
+              return CustomButtonGlobal(sizeBoxWidth: sizeBoxWidthGlobal, sizeBoxHeight: sizeBoxHeightGlobal, insideSizeBoxWidget: insideSizeBoxWidget(), onTapUnlessDisable: onTapUnlessDisable);
             }
 
             return setWidthSizeBox();

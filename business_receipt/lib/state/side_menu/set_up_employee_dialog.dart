@@ -863,6 +863,8 @@ void setUpEmployeeDialog({
             salaryListEmployee.first.subSalaryList = [];
             int selectMonthIndex = 0;
             void callBack() {
+              print("salaryListEmployee.first.subSalaryList => ${salaryListEmployee.first.subSalaryList.length}");
+              
               void cancelFunctionOnTap() {
                 if (salaryListEmployee[selectMonthIndex].subSalaryList.length > queryLimitNumberGlobal) {
                   List<SubSalaryModel> subSalaryListTemp = [];
@@ -891,19 +893,23 @@ void setUpEmployeeDialog({
                     List<Widget> inWrapWidgetList() {
                       Widget monthWidget({required int monthIndex}) {
                         Widget insideSizeBoxWidget() {
-                          final String moneyTypeStr = salaryListEmployee[monthIndex].subSalaryList.last.salaryHistoryList.last.salaryCalculation.moneyType!;
-                          final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
-                            valueStr: salaryListEmployee[monthIndex].totalCalculate.toString(),
-                            isRound: false,
-                          );
-                          return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            Text(formatDateYMToStr(date: salaryListEmployee[monthIndex].date), style: textStyleGlobal(level: Level.normal)),
-                            scrollText(
-                              textStr: "$subTotalSalaryStr $moneyTypeStr",
-                              alignment: Alignment.topLeft,
-                              textStyle: textStyleGlobal(level: Level.normal, color: positiveColorGlobal),
-                            ),
-                          ]);
+                          if (salaryListEmployee[monthIndex].subSalaryList.isEmpty) {
+                            return Container();
+                          } else {
+                            final String moneyTypeStr = salaryListEmployee[monthIndex].subSalaryList.last.salaryHistoryList.last.salaryCalculation.moneyType!;
+                            final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
+                              valueStr: salaryListEmployee[monthIndex].totalCalculate.toString(),
+                              isRound: false,
+                            );
+                            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                              Text(formatDateYMToStr(date: salaryListEmployee[monthIndex].date), style: textStyleGlobal(level: Level.normal)),
+                              scrollText(
+                                textStr: "$subTotalSalaryStr $moneyTypeStr",
+                                alignment: Alignment.topLeft,
+                                textStyle: textStyleGlobal(level: Level.normal, color: positiveColorGlobal),
+                              ),
+                            ]);
+                          }
                         }
 
                         return CustomButtonGlobal(
@@ -914,6 +920,7 @@ void setUpEmployeeDialog({
                             setStateFromDialog(() {});
                           },
                         );
+                        // return Container();
                       }
 
                       return [for (int monthIndex = 0; monthIndex < salaryListEmployee.length; monthIndex++) monthWidget(monthIndex: monthIndex)];
@@ -989,6 +996,7 @@ void setUpEmployeeDialog({
                     Widget employeeButtonWidget({required int subSalaryIndex}) {
                       Widget setWidthSizeBox() {
                         Widget insideSizeBoxWidget() {
+                          print("salaryListEmployee => ${salaryListEmployee.length}");
                           return Center(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1257,6 +1265,7 @@ void setUpEmployeeDialog({
                       return setWidthSizeBox();
                     }
 
+                    print("salaryListEmployee[selectMonthIndex].subSalaryList => ${salaryListEmployee[selectMonthIndex].subSalaryList.length}");
                     return [for (int dateIndex = 0; dateIndex < salaryListEmployee[selectMonthIndex].subSalaryList.length; dateIndex++) employeeButtonWidget(subSalaryIndex: dateIndex)];
                   }
 
