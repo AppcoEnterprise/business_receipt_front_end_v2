@@ -246,13 +246,124 @@ class _ChartAdminSideMenuState extends State<ChartAdminSideMenu> {
           void callBack({required UpAndDownProfitChart? chartProfitModelTemp, required List<UpAndDownCountElement>? chartCountModelListTemp, required String chartType}) {
             Widget calculateCardDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
               if (chartTypeIndex == 0) {
+                Widget wallDetailWidget({required int xIndex}) {
+                  final String profitStr = formatAndLimitNumberTextGlobal(
+                    isRound: false,
+                    // isAddComma: true,
+                    valueStr: chartProfitModelTemp!.upAndDownProfitList[xIndex].profitMerge.toString(),
+                    // isAllowZeroAtLast: false,
+                    // places: (place >= 0) ? (place * multiPlaceOfProfitNumberWhenPlaceMoreThan0) : placeOfProfitNumberWhenPlaceMoreThan0,
+                  );
+                  Widget invoiceDetailWidget({required String titleStr, required List<ProfitAndRateElement> profitList}) {
+                    if (profitList.isEmpty) {
+                      return Container();
+                    } else {
+                      Widget profitSeparateWidget({required int profitIndex}) {
+                        print("==========================================");
+                        print("${profitList[profitIndex].profit} == 0 => ${profitList[profitIndex].profit == 0}");
+                        if (profitList[profitIndex].profit == 0) {
+                          return Container();
+                        } else {
+                          final String profitSeparateStr = formatAndLimitNumberTextGlobal(
+                            isRound: false,
+                            valueStr: profitList[profitIndex].profit.toString(),
+                          );
+                          final String operatorStr = profitList[profitIndex].isBuyRate ? "x" : "/";
+                          final String averageRateStr = formatAndLimitNumberTextGlobal(
+                            isRound: false,
+                            valueStr: profitList[profitIndex].averageRate.toString(),
+                          );
+                          final String profitSeparateResultStr = formatAndLimitNumberTextGlobal(
+                            isRound: false,
+                            valueStr: (profitList[profitIndex].isBuyRate
+                                    ? (profitList[profitIndex].profit * profitList[profitIndex].averageRate)
+                                    : (profitList[profitIndex].profit / profitList[profitIndex].averageRate))
+                                .toString(),
+                          );
+                          return Padding(
+                            padding: EdgeInsets.only(left: paddingSizeGlobal(level: Level.normal)),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(children: [
+                                Text(
+                                  "$profitSeparateStr ${profitList[profitIndex].moneyType}",
+                                  style: textStyleGlobal(level: Level.normal, color: profitList[profitIndex].profit >= 0 ? positiveColorGlobal : negativeColorGlobal),
+                                ),
+                                Text(" $operatorStr $averageRateStr = ", style: textStyleGlobal(level: Level.normal)),
+                                Text(
+                                  "$profitSeparateResultStr ${chartProfitModelTemp.moneyType}",
+                                  style: textStyleGlobal(level: Level.normal, color: profitList[profitIndex].profit >= 0 ? positiveColorGlobal : negativeColorGlobal),
+                                ),
+                              ]),
+                            ),
+                          );
+                        }
+                      }
+
+                      bool isAllZero = true;
+                      for (int profitIndex = 0; profitIndex < profitList.length; profitIndex++) {
+                        if (profitList[profitIndex].profit != 0) {
+                          isAllZero = false;
+                          break;
+                        }
+                      }
+                      print("isAllZero => $isAllZero");
+                      return isAllZero
+                          ? Container()
+                          : Padding(
+                              padding: EdgeInsets.only(top: paddingSizeGlobal(level: Level.normal)),
+                              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                Text("Detail of $titleStr: ", style: textStyleGlobal(level: Level.normal)),
+                                for (int profitIndex = 0; profitIndex < profitList.length; profitIndex++) profitSeparateWidget(profitIndex: profitIndex),
+                              ]),
+                            );
+                    }
+                  }
+
+                  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: paddingSizeGlobal(level: Level.normal)),
+                      child: Row(children: [
+                        Text("$profitIsStrGlobal ", style: textStyleGlobal(level: Level.normal)),
+                        Text(
+                          "$profitStr ${chartProfitModelTemp.moneyType}",
+                          style: textStyleGlobal(
+                            level: Level.normal,
+                            fontWeight: FontWeight.bold,
+                            color: (chartProfitModelTemp.upAndDownProfitList[xIndex].profitMerge >= 0) ? positiveColorGlobal : negativeColorGlobal,
+                          ),
+                        ),
+                      ]),
+                    ),
+                    invoiceDetailWidget(titleStr: exchangeProfitStrGlobal, profitList: chartProfitModelTemp.upAndDownProfitList[xIndex].exchangeProfitList),
+                    invoiceDetailWidget(titleStr: cardProfitStrGlobal, profitList: chartProfitModelTemp.upAndDownProfitList[xIndex].sellCardProfitList),
+                    invoiceDetailWidget(titleStr: transferProfitStrGlobal, profitList: chartProfitModelTemp.upAndDownProfitList[xIndex].transferProfitList),
+                    invoiceDetailWidget(titleStr: excelProfitStrGlobal, profitList: chartProfitModelTemp.upAndDownProfitList[xIndex].excelProfitList),
+                  ]);
+                }
+
+                List<UpAndDownWallElement> upAndDownList = [];
+                for (int xIndex = 0; xIndex < chartProfitModelTemp!.upAndDownProfitList.length; xIndex++) {
+                  upAndDownList.add(UpAndDownWallElement(
+                    startDate: chartProfitModelTemp.upAndDownProfitList[xIndex].startDate,
+                    endDate: chartProfitModelTemp.upAndDownProfitList[xIndex].endDate,
+                    value: chartProfitModelTemp.upAndDownProfitList[xIndex].profitMerge,
+                  ));
+                }
+
                 return SingleChildScrollView(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                    Text("All Profit Marge By ${chartProfitModelTemp!.moneyType}", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
-                    ChartUpAndDown(upAndDown: chartProfitModelTemp, dateTypeEnum: getDateTypeEnumByIndex(index: dateTypeIndex)),
+                    Text("All Profit Marge By ${chartProfitModelTemp.moneyType}", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),
+                    ChartUpAndDownWall(
+                      upAndDownList: upAndDownList,
+                      wallDetailWidget: wallDetailWidget,
+                      dateTypeEnum: getDateTypeEnumByIndex(index: dateTypeIndex),
+                      yTitleDetailStr: chartProfitModelTemp.moneyType!,
+                    ),
                   ]),
                 );
               } else if (chartTypeIndex == 1) {
+                
                 return SingleChildScrollView(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
                     Text("Count Invoices", style: textStyleGlobal(level: Level.normal, fontWeight: FontWeight.bold)),

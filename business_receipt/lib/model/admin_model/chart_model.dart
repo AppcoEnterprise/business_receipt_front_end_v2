@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:meta/meta.dart';
 import 'dart:convert';
+import 'package:fl_chart/fl_chart.dart';
 
 UpAndDownProfitChart upAndDownChartFromJson({required dynamic str}) => UpAndDownProfitChart.fromJson(json.decode(json.encode(str)));
 
@@ -32,10 +35,10 @@ class UpAndDownProfitElement {
   DateTime startDate;
   DateTime endDate;
   double profitMerge;
-  List<ProfitElement> exchangeProfitList;
-  List<ProfitElement> sellCardProfitList;
-  List<ProfitElement> transferProfitList;
-  List<ProfitElement> excelProfitList;
+  List<ProfitAndRateElement> exchangeProfitList;
+  List<ProfitAndRateElement> sellCardProfitList;
+  List<ProfitAndRateElement> transferProfitList;
+  List<ProfitAndRateElement> excelProfitList;
 
   UpAndDownProfitElement({
     required this.startDate,
@@ -50,10 +53,10 @@ class UpAndDownProfitElement {
   factory UpAndDownProfitElement.fromJson(Map<String, dynamic> json) => UpAndDownProfitElement(
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
-        exchangeProfitList: List<ProfitElement>.from(json["exchange_profit_list"].map((x) => ProfitElement.fromJson(x))),
-        sellCardProfitList: List<ProfitElement>.from(json["sell_card_profit_list"].map((x) => ProfitElement.fromJson(x))),
-        transferProfitList: List<ProfitElement>.from(json["transfer_profit_list"].map((x) => ProfitElement.fromJson(x))),
-        excelProfitList: List<ProfitElement>.from(json["excel_profit_list"].map((x) => ProfitElement.fromJson(x))),
+        exchangeProfitList: List<ProfitAndRateElement>.from(json["exchange_profit_list"].map((x) => ProfitAndRateElement.fromJson(x))),
+        sellCardProfitList: List<ProfitAndRateElement>.from(json["sell_card_profit_list"].map((x) => ProfitAndRateElement.fromJson(x))),
+        transferProfitList: List<ProfitAndRateElement>.from(json["transfer_profit_list"].map((x) => ProfitAndRateElement.fromJson(x))),
+        excelProfitList: List<ProfitAndRateElement>.from(json["excel_profit_list"].map((x) => ProfitAndRateElement.fromJson(x))),
         profitMerge: json["profit_merge"],
       );
 
@@ -68,20 +71,20 @@ class UpAndDownProfitElement {
       };
 }
 
-class ProfitElement {
+class ProfitAndRateElement {
   String moneyType;
   double profit;
   bool isBuyRate;
   double averageRate;
 
-  ProfitElement({
+  ProfitAndRateElement({
     required this.moneyType,
     required this.profit,
     required this.isBuyRate,
     required this.averageRate,
   });
 
-  factory ProfitElement.fromJson(Map<String, dynamic> json) => ProfitElement(
+  factory ProfitAndRateElement.fromJson(Map<String, dynamic> json) => ProfitAndRateElement(
         moneyType: json["money_type"],
         profit: json["profit"]?.toDouble(),
         isBuyRate: json["is_buy_rate"],
@@ -114,35 +117,35 @@ List<UpAndDownCountElement> upAndDownCountElementFromJson({required dynamic str}
 String upAndDownCountElementToJson(List<UpAndDownCountElement> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UpAndDownCountElement {
-    DateTime startDate;
-    DateTime endDate;
-    int totalCount;
-    int excelCount;
-    int transferCount;
-    int sellCardCount;
-    int exchangeCount;
+  DateTime startDate;
+  DateTime endDate;
+  int totalCount;
+  int excelCount;
+  int transferCount;
+  int sellCardCount;
+  int exchangeCount;
 
-    UpAndDownCountElement({
-        required this.startDate,
-        required this.endDate,
-        required this.totalCount,
-        required this.excelCount,
-        required this.transferCount,
-        required this.sellCardCount,
-        required this.exchangeCount,
-    });
+  UpAndDownCountElement({
+    required this.startDate,
+    required this.endDate,
+    required this.totalCount,
+    required this.excelCount,
+    required this.transferCount,
+    required this.sellCardCount,
+    required this.exchangeCount,
+  });
 
-    factory UpAndDownCountElement.fromJson(Map<String, dynamic> json) => UpAndDownCountElement(
+  factory UpAndDownCountElement.fromJson(Map<String, dynamic> json) => UpAndDownCountElement(
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
-        totalCount: json["total_count"]?? 0,
-        excelCount: json["excel_count"]?? 0,
-        transferCount: json["transfer_count"]?? 0,
-        sellCardCount: json["sell_card_count"]?? 0,
-        exchangeCount: json["exchange_count"]?? 0,
-    );
+        totalCount: json["total_count"] ?? 0,
+        excelCount: json["excel_count"] ?? 0,
+        transferCount: json["transfer_count"] ?? 0,
+        sellCardCount: json["sell_card_count"] ?? 0,
+        exchangeCount: json["exchange_count"] ?? 0,
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "start_date": startDate.toIso8601String(),
         "end_date": endDate.toIso8601String(),
         "total_count": totalCount,
@@ -150,5 +153,40 @@ class UpAndDownCountElement {
         "transfer_count": transferCount,
         "sell_card_count": sellCardCount,
         "exchange_count": exchangeCount,
-    };
+      };
+}
+
+class UpAndDownWallElement {
+  DateTime startDate;
+  DateTime endDate;
+  double value;
+
+  UpAndDownWallElement({
+    required this.startDate,
+    required this.endDate,
+    required this.value,
+  });
+}
+
+class LineChartModel {
+  Color color;
+  List<FlSpot> spots;
+  LineChartModel({required this.color, required this.spots});
+
+  LineChartBarData lineChartBarData() => LineChartBarData(
+        curveSmoothness: 0,
+        isCurved: true,
+        color: color,
+        barWidth: 4,
+        isStrokeCapRound: true,
+        dotData: const FlDotData(show: true),
+        belowBarData: BarAreaData(show: false),
+        spots: spots,
+      );
+}
+
+class ChartYAxis {
+  String title;
+  int value;
+  ChartYAxis({required this.title, required this.value});
 }

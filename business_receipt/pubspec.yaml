@@ -59,6 +59,7 @@ dev_dependencies:
   path: ^1.8.3
   mime: ^1.0.4
   drop_zone: ^1.0.2
+  fl_chart: ^0.68.0
   # pie_chart: ^5.4.0
 
   # The "flutter_lints" package below contains a set of recommended lints to

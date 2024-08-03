@@ -118,6 +118,6 @@ class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
     // return Container();
-    return Scaffold(body: ChartUpAndDown(upAndDown: profitList, dateTypeEnum: DateTypeEnum.day));
+    return Scaffold(body: ChartUpAndDownWall(upAndDown: profitList, dateTypeEnum: DateTypeEnum.day));
   }
 }
