@@ -131,6 +131,7 @@ Future<void> logInAsEmployeeGlobal({required String name, required String passwo
     profileModelAdminGlobal = (response.data["profile_admin"] == null) ? null : profileModelAdminFromJson(str: response.data["profile_admin"]);
     final isLogInSuccess = (profileModelAdminGlobal != null && profileModelEmployeeGlobal != null);
     if (isLogInSuccess) {
+      print(json.encode(response.data));
       
       setEmployeeNamePasswordAndTokenToLocalStorage(nameStr: name, passwordStr: password, token: response.data["access_token"]);
       await initHistoryModel(response: response);

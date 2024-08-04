@@ -42,7 +42,6 @@ Future<void> getChartAdminGlobal({
         "authorization": "Bearer ${getAdminOrEmployeeTokenFromLocalStorage()}",
       }),
     );
-    print(json.encode(response.data));
     final bool isValidQuery = checkValidateResponseAdminOrEmployee(response: response, context: context);
     UpAndDownProfitChart? chartProfitModelTemp = (response.data["profit_target_date_list"] == null) ? null : upAndDownChartFromJson(str: response.data);
     List<UpAndDownCountElement>? chartCountModelListTemp = (response.data["count_target_date_list"] == null) ? null : upAndDownCountElementFromJson(str: response.data["count_target_date_list"]);

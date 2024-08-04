@@ -74,14 +74,14 @@ List<dynamic> salaryMergeByMonthModelToJson(List<SalaryMergeByMonthModel> data) 
 class SalaryMergeByMonthModel {
   List<SubSalaryModel> subSalaryList;
   DateTime date;
-  double totalCalculate;
+  List<MoneyTypeAndValueModel> totalList;
   int skipSalaryList;
   bool outOfDataQuerySalaryList;
 
   SalaryMergeByMonthModel({
     required this.subSalaryList,
     required this.date,
-    required this.totalCalculate,
+    required this.totalList,
     this.skipSalaryList = queryLimitNumberGlobal,
     this.outOfDataQuerySalaryList = false,
   });
@@ -89,12 +89,13 @@ class SalaryMergeByMonthModel {
   factory SalaryMergeByMonthModel.fromJson(Map<String, dynamic> json) => SalaryMergeByMonthModel(
         subSalaryList: List<SubSalaryModel>.from(json["salary_list"].map((x) => SubSalaryModel.fromJson(x))),
         date: DateTime.parse(json["date"]),
-        totalCalculate: json["total_calculate"],
+        totalList: List<MoneyTypeAndValueModel>.from(json["total_list"].map((x) => MoneyTypeAndValueModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() {
     return {
       "salary_list": List<dynamic>.from(subSalaryList.map((x) => x.toJson())),
+      "total_list": List<dynamic>.from(totalList.map((x) => x.toJson())),
       "date": date,
     };
   }

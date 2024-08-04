@@ -30,6 +30,7 @@ import 'package:business_receipt/env/value_env/title_env.dart';
 import 'package:business_receipt/env/value_env/valid_button_env.dart';
 import 'package:business_receipt/model/employee_model/profile_model.dart';
 import 'package:business_receipt/model/employee_model/salary_model.dart';
+import 'package:business_receipt/model/money_type_and_value_model.dart';
 import 'package:business_receipt/model/valid_button_model.dart';
 import 'package:business_receipt/state/side_menu/employee_side_menu/history_employee_side_menu.dart';
 import 'package:flutter/material.dart';
@@ -767,6 +768,7 @@ void setUpEmployeeDialog({
       invoiceType: InvoiceEnum.print,
       title: "$printTitleGlobal  (${profileModelEmployeeTemp.displayBusinessOptionModel.printOtherNoteSetting.printOtherNoteOption ? "show" : "hide"})",
     ));
+
     Widget employeeSettingWidget() {
       Widget paddingBottomTitleWidget() {
         Widget titleWidget() {
@@ -863,8 +865,6 @@ void setUpEmployeeDialog({
             salaryListEmployee.first.subSalaryList = [];
             int selectMonthIndex = 0;
             void callBack() {
-              print("salaryListEmployee.first.subSalaryList => ${salaryListEmployee.first.subSalaryList.length}");
-              
               void cancelFunctionOnTap() {
                 if (salaryListEmployee[selectMonthIndex].subSalaryList.length > queryLimitNumberGlobal) {
                   List<SubSalaryModel> subSalaryListTemp = [];
@@ -880,6 +880,68 @@ void setUpEmployeeDialog({
               }
 
               Widget editEmployeeDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
+                Widget getTotalSalaryStr({required List<MoneyTypeAndValueModel> totalList, required bool isRow}) {
+                  bool isAddLastSalary = true;
+                  if (isAdminEditing) {
+                    if (salaryListEmployee.first.subSalaryList.isEmpty) {
+                      isAddLastSalary = false;
+                    } else {
+                      final DateTime now = DateTime.now();
+                      if (salaryListEmployee.first.subSalaryList.first.date!.compareTo(DateTime(now.year, now.month, now.day)) != 0) {
+                        isAddLastSalary = false;
+                      }
+                    }
+                  }
+                  if (isAddLastSalary) {
+                    int matchIndex = -1;
+                    for (int i = 0; i < totalList.length; i++) {
+                      if (totalList[i].moneyType == salaryListEmployee.first.subSalaryList.first.salaryHistoryList.last.salaryCalculation.moneyType!) {
+                        matchIndex = i;
+                        break;
+                      }
+                    }
+                    double value = SalaryLoading(
+                      subSalaryIndex: 0,
+                      level: Level.normal,
+                      salaryIndex: 0,
+                      alignment: Alignment.topCenter,
+                      salaryListEmployee: salaryListEmployee,
+                    );
+                    if (matchIndex != -1) {
+                      totalList[matchIndex].value += salaryListEmployee.first.subSalaryList.first.salaryHistoryList.last.salaryCalculation.totalCalculate;
+                    } else {
+                      totalList.add(MoneyTypeAndValueModel(
+                        moneyType: salaryListEmployee.first.subSalaryList.first.salaryHistoryList.last.salaryCalculation.moneyType!,
+                        value: salaryListEmployee.first.subSalaryList.last.salaryHistoryList.last.salaryCalculation.totalCalculate,
+                      ));
+                    }
+                  }
+                  if (isRow) {
+                    Widget totalWidget({required int i}) {
+                      final String moneyTypeStr = totalList[i].moneyType;
+                      final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
+                        valueStr: totalList[i].value.toString(),
+                        isRound: false,
+                      );
+                      return Text("$subTotalSalaryStr $moneyTypeStr", style: textStyleGlobal(level: Level.normal, color: positiveColorGlobal));
+                    }
+
+                    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [for (int i = 0; i < totalList.length; i++) totalWidget(i: i)]);
+                  } else {
+                    String str = "";
+                    for (int i = 0; i < totalList.length; i++) {
+                      final String moneyTypeStr = totalList[i].moneyType;
+                      final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
+                        valueStr: totalList[i].value.toString(),
+                        isRound: false,
+                      );
+                      str = "$str $subTotalSalaryStr $moneyTypeStr ${(i == totalList.length - 1) ? "" : "|"}";
+                    }
+                    return Row(children: [scrollText(textStr: str, alignment: Alignment.topLeft, textStyle: textStyleGlobal(level: Level.normal, color: positiveColorGlobal))]);
+                  }
+                  // return str;
+                }
+
                 Widget salaryDetailWidget() {
                   Widget paddingBottomTitleWidget() {
                     Widget titleWidget() {
@@ -893,23 +955,19 @@ void setUpEmployeeDialog({
                     List<Widget> inWrapWidgetList() {
                       Widget monthWidget({required int monthIndex}) {
                         Widget insideSizeBoxWidget() {
-                          if (salaryListEmployee[monthIndex].subSalaryList.isEmpty) {
-                            return Container();
-                          } else {
-                            final String moneyTypeStr = salaryListEmployee[monthIndex].subSalaryList.last.salaryHistoryList.last.salaryCalculation.moneyType!;
-                            final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
-                              valueStr: salaryListEmployee[monthIndex].totalCalculate.toString(),
-                              isRound: false,
-                            );
-                            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                              Text(formatDateYMToStr(date: salaryListEmployee[monthIndex].date), style: textStyleGlobal(level: Level.normal)),
-                              scrollText(
-                                textStr: "$subTotalSalaryStr $moneyTypeStr",
-                                alignment: Alignment.topLeft,
-                                textStyle: textStyleGlobal(level: Level.normal, color: positiveColorGlobal),
-                              ),
-                            ]);
-                          }
+                          // if (salaryListEmployee[monthIndex].subSalaryList.isEmpty) {
+                          //   return Container();
+                          // } else {
+                          // final String moneyTypeStr = salaryListEmployee[monthIndex].subSalaryList.last.salaryHistoryList.last.salaryCalculation.moneyType!;
+                          // final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
+                          //   valueStr: salaryListEmployee[monthIndex].totalCalculate.toString(),
+                          //   isRound: false,
+                          // );
+                          return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Text(formatDateYMToStr(date: salaryListEmployee[monthIndex].date), style: textStyleGlobal(level: Level.normal)),
+                            getTotalSalaryStr(totalList: salaryListEmployee[monthIndex].totalList, isRow: false),
+                          ]);
+                          // }
                         }
 
                         return CustomButtonGlobal(
@@ -923,6 +981,7 @@ void setUpEmployeeDialog({
                         // return Container();
                       }
 
+                      print("salaryListEmployee.length => ${salaryListEmployee.length}");
                       return [for (int monthIndex = 0; monthIndex < salaryListEmployee.length; monthIndex++) monthWidget(monthIndex: monthIndex)];
                     }
 
@@ -973,20 +1032,17 @@ void setUpEmployeeDialog({
                   }
 
                   Widget salaryWidget() {
-                    final String moneyTypeStr = salaryListEmployee[selectMonthIndex].subSalaryList.last.salaryHistoryList.last.salaryCalculation.moneyType!;
+                    // final String moneyTypeStr = salaryListEmployee[selectMonthIndex].subSalaryList.last.salaryHistoryList.last.salaryCalculation.moneyType!;
                     final String dateStr = formatDateYMToStr(date: salaryListEmployee[selectMonthIndex].date);
-                    final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
-                      valueStr: salaryListEmployee[selectMonthIndex].totalCalculate.toString(),
-                      isRound: false,
-                    );
+                    // final String subTotalSalaryStr = formatAndLimitNumberTextGlobal(
+                    //   valueStr: salaryListEmployee[selectMonthIndex].totalCalculate.toString(),
+                    //   isRound: false,
+                    // );
                     return Padding(
                       padding: EdgeInsets.only(bottom: paddingSizeGlobal(level: Level.large)),
                       child: Row(children: [
                         Text("$dateStr (", style: textStyleGlobal(level: Level.large, fontWeight: FontWeight.bold)),
-                        Text(
-                          "$subTotalSalaryStr $moneyTypeStr",
-                          style: textStyleGlobal(level: Level.large, fontWeight: FontWeight.bold, color: positiveColorGlobal),
-                        ),
+                        getTotalSalaryStr(totalList: salaryListEmployee[selectMonthIndex].totalList, isRow: true),
                         Text(")", style: textStyleGlobal(level: Level.large, fontWeight: FontWeight.bold)),
                       ]),
                     );
@@ -996,7 +1052,6 @@ void setUpEmployeeDialog({
                     Widget employeeButtonWidget({required int subSalaryIndex}) {
                       Widget setWidthSizeBox() {
                         Widget insideSizeBoxWidget() {
-                          print("salaryListEmployee => ${salaryListEmployee.length}");
                           return Center(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1265,7 +1320,6 @@ void setUpEmployeeDialog({
                       return setWidthSizeBox();
                     }
 
-                    print("salaryListEmployee[selectMonthIndex].subSalaryList => ${salaryListEmployee[selectMonthIndex].subSalaryList.length}");
                     return [for (int dateIndex = 0; dateIndex < salaryListEmployee[selectMonthIndex].subSalaryList.length; dateIndex++) employeeButtonWidget(subSalaryIndex: dateIndex)];
                   }
 
@@ -1292,7 +1346,7 @@ void setUpEmployeeDialog({
 
                 return Row(children: [
                   Expanded(flex: 2, child: salaryDetailWidget()),
-                  Expanded(flex: (flexValueGlobal + 5), child: subSalaryDetailWidget()),
+                  Expanded(flex: flexValueGlobal, child: subSalaryDetailWidget()),
                 ]);
               }
 
@@ -1306,7 +1360,7 @@ void setUpEmployeeDialog({
             }
 
             getSalaryListEmployeeGlobal(
-              targetDate: DateTime.now(),
+              targetDate: salaryListEmployee.first.date,
               skip: 0,
               callBack: callBack,
               context: context,
