@@ -2319,7 +2319,7 @@ void limitHistory() {
   // skipSalaryListGlobal = queryLimitNumberGlobal;
   // outOfDataQuerySalaryListGlobal = false;
   for (int salaryIndex = 0; salaryIndex < salaryListEmployeeGlobal.length; salaryIndex++) {
-    salaryListEmployeeGlobal[salaryIndex].skipSalaryList = queryLimitNumberGlobal;
+    salaryListEmployeeGlobal[salaryIndex].skipSalaryList = 0;
     salaryListEmployeeGlobal[salaryIndex].outOfDataQuerySalaryList = false;
     if (salaryIndex == 0) {
       if (salaryListEmployeeGlobal[salaryIndex].subSalaryList.length > queryLimitNumberGlobal) {

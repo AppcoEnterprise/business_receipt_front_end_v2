@@ -82,7 +82,7 @@ class SalaryMergeByMonthModel {
     required this.subSalaryList,
     required this.date,
     required this.totalList,
-    this.skipSalaryList = queryLimitNumberGlobal,
+    this.skipSalaryList = 0,
     this.outOfDataQuerySalaryList = false,
   });
 

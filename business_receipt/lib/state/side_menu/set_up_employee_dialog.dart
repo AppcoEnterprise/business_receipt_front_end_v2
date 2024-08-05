@@ -865,6 +865,7 @@ void setUpEmployeeDialog({
             salaryListEmployee.first.subSalaryList = [];
             int selectMonthIndex = 0;
             void callBack() {
+              salaryListEmployee.first.skipSalaryList = queryLimitNumberGlobal;
               void cancelFunctionOnTap() {
                 if (salaryListEmployee[selectMonthIndex].subSalaryList.length > queryLimitNumberGlobal) {
                   List<SubSalaryModel> subSalaryListTemp = [];
@@ -874,48 +875,34 @@ void setUpEmployeeDialog({
                   salaryListEmployee[selectMonthIndex].subSalaryList = subSalaryListTemp;
                 }
                 salaryListEmployee[selectMonthIndex].outOfDataQuerySalaryList = false;
-                salaryListEmployee[selectMonthIndex].skipSalaryList = queryLimitNumberGlobal;
+                salaryListEmployee[selectMonthIndex].skipSalaryList = 0;
 
                 closeDialogGlobal(context: context);
               }
 
               Widget editEmployeeDialog({required Function setStateFromDialog, required Size screenSizeFromDialog}) {
                 Widget getTotalSalaryStr({required List<MoneyTypeAndValueModel> totalList, required bool isRow}) {
-                  bool isAddLastSalary = true;
-                  if (isAdminEditing) {
-                    if (salaryListEmployee.first.subSalaryList.isEmpty) {
-                      isAddLastSalary = false;
-                    } else {
-                      final DateTime now = DateTime.now();
-                      if (salaryListEmployee.first.subSalaryList.first.date!.compareTo(DateTime(now.year, now.month, now.day)) != 0) {
-                        isAddLastSalary = false;
-                      }
-                    }
-                  }
-                  if (isAddLastSalary) {
-                    int matchIndex = -1;
-                    for (int i = 0; i < totalList.length; i++) {
-                      if (totalList[i].moneyType == salaryListEmployee.first.subSalaryList.first.salaryHistoryList.last.salaryCalculation.moneyType!) {
-                        matchIndex = i;
-                        break;
-                      }
-                    }
-                    double value = SalaryLoading(
-                      subSalaryIndex: 0,
-                      level: Level.normal,
-                      salaryIndex: 0,
-                      alignment: Alignment.topCenter,
-                      salaryListEmployee: salaryListEmployee,
-                    );
-                    if (matchIndex != -1) {
-                      totalList[matchIndex].value += salaryListEmployee.first.subSalaryList.first.salaryHistoryList.last.salaryCalculation.totalCalculate;
-                    } else {
-                      totalList.add(MoneyTypeAndValueModel(
-                        moneyType: salaryListEmployee.first.subSalaryList.first.salaryHistoryList.last.salaryCalculation.moneyType!,
-                        value: salaryListEmployee.first.subSalaryList.last.salaryHistoryList.last.salaryCalculation.totalCalculate,
-                      ));
-                    }
-                  }
+                  //   if (salaryListEmployee[selectMonthIndex].subSalaryList.isNotEmpty) {
+                  // final DateTime now = DateTime.now();
+                  // if (removeUAndTDate(date: salaryListEmployee[selectMonthIndex].subSalaryList.first.date!).compareTo(DateTime(now.year, now.month, now.day)) == 0) {
+                  //   int matchIndex = -1;
+                  //   for (int i = 0; i < totalList.length; i++) {
+                  //     if (totalList[i].moneyType == salaryListEmployee[selectMonthIndex].subSalaryList.first.salaryHistoryList.last.salaryCalculation.moneyType!) {
+                  //       matchIndex = i;
+                  //       break;
+                  //     }
+                  //   }
+
+                  //   final MoneyTypeAndValueModel moneyTypeAndValueModel = calculateSalaryModel(subSalaryIndex: 0, salaryIndex: 0, salaryListEmployee: salaryListEmployee);
+                  //   if (matchIndex != -1) {
+                  //     totalList[matchIndex].value += moneyTypeAndValueModel.value;
+                  //   } else {
+                  //     totalList.add(MoneyTypeAndValueModel(
+                  //       moneyType: salaryListEmployee[selectMonthIndex].subSalaryList.first.salaryHistoryList.last.salaryCalculation.moneyType!,
+                  //       value: moneyTypeAndValueModel.value,
+                  //     ));
+                  //   }
+                  // }}
                   if (isRow) {
                     Widget totalWidget({required int i}) {
                       final String moneyTypeStr = totalList[i].moneyType;
@@ -937,7 +924,7 @@ void setUpEmployeeDialog({
                       );
                       str = "$str $subTotalSalaryStr $moneyTypeStr ${(i == totalList.length - 1) ? "" : "|"}";
                     }
-                    return Row(children: [scrollText(textStr: str, alignment: Alignment.topLeft, textStyle: textStyleGlobal(level: Level.normal, color: positiveColorGlobal))]);
+                    return scrollText(textStr: str, alignment: Alignment.topLeft, textStyle: textStyleGlobal(level: Level.normal, color: positiveColorGlobal));
                   }
                   // return str;
                 }
@@ -981,7 +968,6 @@ void setUpEmployeeDialog({
                         // return Container();
                       }
 
-                      print("salaryListEmployee.length => ${salaryListEmployee.length}");
                       return [for (int monthIndex = 0; monthIndex < salaryListEmployee.length; monthIndex++) monthWidget(monthIndex: monthIndex)];
                     }
 
@@ -1021,7 +1007,7 @@ void setUpEmployeeDialog({
                       }
 
                       getSalaryListEmployeeGlobal(
-                        targetDate: DateTime.now(),
+                        targetDate: salaryListEmployee[selectMonthIndex].date,
                         callBack: subCallBack,
                         context: context,
                         skip: salaryListEmployee[selectMonthIndex].skipSalaryList,

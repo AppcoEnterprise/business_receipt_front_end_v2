@@ -68,6 +68,7 @@ Future<void> getSalaryListEmployeeGlobal({
       },
       options: Options(headers: {"Content-Type": "application/json", "authorization": "Bearer ${getAdminOrEmployeeTokenFromLocalStorage()}"}),
     );
+    print(json.encode(response.data));
     final List<SubSalaryModel> salaryModelTemp = salaryModelFromJson(str: response.data["salary_list"]);
     if (salaryListEmployee.isNotEmpty && salaryModelTemp.isNotEmpty) {
       final DateTime dateLast = salaryListEmployee.last.date!;

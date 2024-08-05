@@ -136,142 +136,10 @@ class _SalaryLoadingState extends State<SalaryLoading> {
         }
       });
     }
-    if (widget.salaryListEmployee[widget.salaryIndex].subSalaryList.isEmpty) {
-      return Container();
-    } else {
-      MoneyTypeAndValueModel moneyTypeAndValueModel = getSalaryEarningForHour(
-        salaryList: widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].salaryHistoryList,
-      );
-      final SalaryCalculation salaryCalculation =
-          widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].salaryHistoryList.last.salaryCalculation;
-      final double maxSalaryNumber = textEditingControllerToDouble(controller: salaryCalculation.maxPayAmount)!;
-      // final String salaryMoneyType = salaryCalculation.moneyType!;
-      final bool isSimpleSalary = salaryCalculation.salaryAdvanceList.isEmpty;
-      if (isSimpleSalary) {
-        final SalaryCalculationEarningForInvoice earningForInvoiceModel = salaryCalculation.earningForInvoice!;
-        final double invoicePercentageCount = double.parse(formatAndLimitNumberTextGlobal(
-            valueStr: (widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel.exchangeSetting
-                        .exchangePercentage +
-                    widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel.sellCardSetting
-                        .sellCardPercentage +
-                    widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel.importFromExcelSetting
-                        .excelPercentage +
-                    widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel.transferSetting
-                        .transferPercentage)
-                .toString(),
-            isRound: false,
-            places: 2));
-        final double invoiceCalculate = invoicePercentageCount * textEditingControllerToDouble(controller: earningForInvoiceModel.payAmount)!;
-        moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + invoiceCalculate;
-        final SalaryCalculationEarningForMoneyInUsed earningForMoneyInUsed = salaryCalculation.earningForMoneyInUsed!;
-        final double payAmountNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.payAmount)!;
-        for (int currencyIndex = 0;
-            currencyIndex < widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel.length;
-            currencyIndex++) {
-          for (int moneyIndex = 0; moneyIndex < earningForMoneyInUsed.moneyList.length; moneyIndex++) {
-            if (widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType ==
-                earningForMoneyInUsed.moneyList[moneyIndex].moneyType) {
-              final double moneyTargetNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.moneyList[moneyIndex].moneyAmount)!;
-              final double amountInUsed =
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].amountInUsed;
-              moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + (amountInUsed * payAmountNumber / moneyTargetNumber);
-              break;
-            }
-          }
-        }
-      } else {
-        void addAdvanceToSalary({
-          required String amountInUsedAndProfitMoneyType,
-          required InvoiceEnum invoiceEnum,
-          required AmountInUsedAndProfitModel amountInUsedAndProfitModel,
-          required double countPercentage,
-        }) {
-          List<SalaryAdvance> salaryAdvanceList = salaryCalculation.salaryAdvanceList;
-          for (int advanceIndex = 0; advanceIndex < salaryAdvanceList.length; advanceIndex++) {
-            if (salaryAdvanceList[advanceIndex].invoiceType == invoiceEnum) {
-              final SalaryCalculationEarningForInvoice earningForInvoice = salaryAdvanceList[advanceIndex].earningForInvoice; //0.02
-              final double earningForInvoicePayAmountNumber =
-                  earningForInvoice.payAmount.text.isEmpty ? 0 : textEditingControllerToDouble(controller: earningForInvoice.payAmount)!;
-              final double invoiceCalculate = countPercentage * earningForInvoicePayAmountNumber;
-              moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + invoiceCalculate;
-              // final double earningForInvoicePayAmountNumber = textEditingControllerToDouble(controller: earningForInvoice.payAmount)!;
-              // for (int moneyIndex = 0; moneyIndex < earningForInvoice.combineMoneyInUsed.length; moneyIndex++) {
-              // if (earningForInvoice.combineMoneyInUsed[moneyIndex].moneyType == amountInUsedAndProfitMoneyType) {
-              // final double moneyTargetNumber = textEditingControllerToDouble(controller: earningForInvoice.combineMoneyInUsed[moneyIndex].moneyAmount)!;
-              // final double invoiceCalculate = countPercentage * earningForInvoicePayAmountNumber;
-              // salaryNumber = salaryNumber + invoiceCalculate;
-              // break;
-              // }
-
-              final SalaryCalculationEarningForMoneyInUsed earningForMoneyInUsed = salaryAdvanceList[advanceIndex].earningForMoneyInUsed;
-              final double earningForMoneyInUsedPayAmountNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.payAmount)!;
-              for (int moneyIndex = 0; moneyIndex < earningForMoneyInUsed.moneyList.length; moneyIndex++) {
-                if (earningForMoneyInUsed.moneyList[moneyIndex].moneyType == amountInUsedAndProfitMoneyType) {
-                  final double moneyTargetNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.moneyList[moneyIndex].moneyAmount)!;
-                  final double amountInUsed = amountInUsedAndProfitModel.amountInUsed;
-                  moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + (amountInUsed * earningForMoneyInUsedPayAmountNumber / moneyTargetNumber);
-                  break;
-                }
-              }
-            }
-
-            // break;
-            // }
-          }
-        }
-
-        for (int currencyIndex = 0;
-            currencyIndex < widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel.length;
-            currencyIndex++) {
-          if (widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].exchange != null) {
-            addAdvanceToSalary(
-              amountInUsedAndProfitMoneyType:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
-              invoiceEnum: InvoiceEnum.exchange,
-              amountInUsedAndProfitModel:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].exchange!,
-              countPercentage: widget
-                  .salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel.exchangeSetting.exchangePercentage,
-            );
-          }
-          if (widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].sellCard != null) {
-            addAdvanceToSalary(
-              amountInUsedAndProfitMoneyType:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
-              invoiceEnum: InvoiceEnum.sellCard,
-              amountInUsedAndProfitModel:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].sellCard!,
-              countPercentage: widget
-                  .salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel.sellCardSetting.sellCardPercentage,
-            );
-          }
-          if (widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].excel != null) {
-            addAdvanceToSalary(
-              amountInUsedAndProfitMoneyType:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
-              invoiceEnum: InvoiceEnum.importFromExcel,
-              amountInUsedAndProfitModel:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].excel!,
-              countPercentage: widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel
-                  .importFromExcelSetting.excelPercentage,
-            );
-          }
-          if (widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].transfer != null) {
-            addAdvanceToSalary(
-              amountInUsedAndProfitMoneyType:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
-              invoiceEnum: InvoiceEnum.transfer,
-              amountInUsedAndProfitModel:
-                  widget.salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].amountAndProfitModel[currencyIndex].transfer!,
-              countPercentage: widget
-                  .salaryListEmployee[widget.salaryIndex].subSalaryList[widget.subSalaryIndex].displayBusinessOptionModel.transferSetting.transferPercentage,
-            );
-          }
-        }
-      }
-      if (moneyTypeAndValueModel.value > maxSalaryNumber) {
-        moneyTypeAndValueModel.value = maxSalaryNumber;
-      }
+    // if (widget.salaryListEmployee[widget.salaryIndex].subSalaryList.isEmpty) {
+    //   return Container();
+    // } else {
+    final MoneyTypeAndValueModel moneyTypeAndValueModel = calculateSalaryModel(subSalaryIndex: widget.subSalaryIndex, salaryIndex: widget.salaryIndex, salaryListEmployee: widget.salaryListEmployee);
       final String valueStr = formatAndLimitNumberTextGlobal(valueStr: moneyTypeAndValueModel.value.toString(), isRound: false);
       return scrollText(
         textStr: "$valueStr ${moneyTypeAndValueModel.moneyType}",
@@ -279,8 +147,124 @@ class _SalaryLoadingState extends State<SalaryLoading> {
         width: widget.width,
         alignment: widget.alignment,
       );
+    // }
+  }
+}
+
+MoneyTypeAndValueModel calculateSalaryModel({required int subSalaryIndex, required int salaryIndex, required List<SalaryMergeByMonthModel> salaryListEmployee}) {
+  if (salaryListEmployee[salaryIndex].subSalaryList.isEmpty) {
+    return MoneyTypeAndValueModel(value: 0, moneyType: '');
+  }
+  MoneyTypeAndValueModel moneyTypeAndValueModel = getSalaryEarningForHour(
+    salaryList: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].salaryHistoryList,
+  );
+  final SalaryCalculation salaryCalculation = salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].salaryHistoryList.last.salaryCalculation;
+  final double maxSalaryNumber = textEditingControllerToDouble(controller: salaryCalculation.maxPayAmount)!;
+  // final String salaryMoneyType = salaryCalculation.moneyType!;
+  final bool isSimpleSalary = salaryCalculation.salaryAdvanceList.isEmpty;
+  if (isSimpleSalary) {
+    final SalaryCalculationEarningForInvoice earningForInvoiceModel = salaryCalculation.earningForInvoice!;
+    final double invoicePercentageCount = double.parse(formatAndLimitNumberTextGlobal(
+        valueStr: (salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.exchangeSetting.exchangePercentage +
+                salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.sellCardSetting.sellCardPercentage +
+                salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.importFromExcelSetting.excelPercentage +
+                salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.transferSetting.transferPercentage)
+            .toString(),
+        isRound: false,
+        places: 2));
+    final double invoiceCalculate = invoicePercentageCount * textEditingControllerToDouble(controller: earningForInvoiceModel.payAmount)!;
+    moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + invoiceCalculate;
+    final SalaryCalculationEarningForMoneyInUsed earningForMoneyInUsed = salaryCalculation.earningForMoneyInUsed!;
+    final double payAmountNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.payAmount)!;
+    for (int currencyIndex = 0; currencyIndex < salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel.length; currencyIndex++) {
+      for (int moneyIndex = 0; moneyIndex < earningForMoneyInUsed.moneyList.length; moneyIndex++) {
+        if (salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType == earningForMoneyInUsed.moneyList[moneyIndex].moneyType) {
+          final double moneyTargetNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.moneyList[moneyIndex].moneyAmount)!;
+          final double amountInUsed = salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].amountInUsed;
+          moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + (amountInUsed * payAmountNumber / moneyTargetNumber);
+          break;
+        }
+      }
+    }
+  } else {
+    void addAdvanceToSalary({
+      required String amountInUsedAndProfitMoneyType,
+      required InvoiceEnum invoiceEnum,
+      required AmountInUsedAndProfitModel amountInUsedAndProfitModel,
+      required double countPercentage,
+    }) {
+      List<SalaryAdvance> salaryAdvanceList = salaryCalculation.salaryAdvanceList;
+      for (int advanceIndex = 0; advanceIndex < salaryAdvanceList.length; advanceIndex++) {
+        if (salaryAdvanceList[advanceIndex].invoiceType == invoiceEnum) {
+          final SalaryCalculationEarningForInvoice earningForInvoice = salaryAdvanceList[advanceIndex].earningForInvoice; //0.02
+          final double earningForInvoicePayAmountNumber = earningForInvoice.payAmount.text.isEmpty ? 0 : textEditingControllerToDouble(controller: earningForInvoice.payAmount)!;
+          final double invoiceCalculate = countPercentage * earningForInvoicePayAmountNumber;
+          moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + invoiceCalculate;
+          // final double earningForInvoicePayAmountNumber = textEditingControllerToDouble(controller: earningForInvoice.payAmount)!;
+          // for (int moneyIndex = 0; moneyIndex < earningForInvoice.combineMoneyInUsed.length; moneyIndex++) {
+          // if (earningForInvoice.combineMoneyInUsed[moneyIndex].moneyType == amountInUsedAndProfitMoneyType) {
+          // final double moneyTargetNumber = textEditingControllerToDouble(controller: earningForInvoice.combineMoneyInUsed[moneyIndex].moneyAmount)!;
+          // final double invoiceCalculate = countPercentage * earningForInvoicePayAmountNumber;
+          // salaryNumber = salaryNumber + invoiceCalculate;
+          // break;
+          // }
+
+          final SalaryCalculationEarningForMoneyInUsed earningForMoneyInUsed = salaryAdvanceList[advanceIndex].earningForMoneyInUsed;
+          final double earningForMoneyInUsedPayAmountNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.payAmount)!;
+          for (int moneyIndex = 0; moneyIndex < earningForMoneyInUsed.moneyList.length; moneyIndex++) {
+            if (earningForMoneyInUsed.moneyList[moneyIndex].moneyType == amountInUsedAndProfitMoneyType) {
+              final double moneyTargetNumber = textEditingControllerToDouble(controller: earningForMoneyInUsed.moneyList[moneyIndex].moneyAmount)!;
+              final double amountInUsed = amountInUsedAndProfitModel.amountInUsed;
+              moneyTypeAndValueModel.value = moneyTypeAndValueModel.value + (amountInUsed * earningForMoneyInUsedPayAmountNumber / moneyTargetNumber);
+              break;
+            }
+          }
+        }
+
+        // break;
+        // }
+      }
+    }
+
+    for (int currencyIndex = 0; currencyIndex < salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel.length; currencyIndex++) {
+      if (salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].exchange != null) {
+        addAdvanceToSalary(
+          amountInUsedAndProfitMoneyType: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
+          invoiceEnum: InvoiceEnum.exchange,
+          amountInUsedAndProfitModel: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].exchange!,
+          countPercentage: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.exchangeSetting.exchangePercentage,
+        );
+      }
+      if (salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].sellCard != null) {
+        addAdvanceToSalary(
+          amountInUsedAndProfitMoneyType: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
+          invoiceEnum: InvoiceEnum.sellCard,
+          amountInUsedAndProfitModel: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].sellCard!,
+          countPercentage: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.sellCardSetting.sellCardPercentage,
+        );
+      }
+      if (salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].excel != null) {
+        addAdvanceToSalary(
+          amountInUsedAndProfitMoneyType: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
+          invoiceEnum: InvoiceEnum.importFromExcel,
+          amountInUsedAndProfitModel: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].excel!,
+          countPercentage: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.importFromExcelSetting.excelPercentage,
+        );
+      }
+      if (salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].transfer != null) {
+        addAdvanceToSalary(
+          amountInUsedAndProfitMoneyType: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].moneyType,
+          invoiceEnum: InvoiceEnum.transfer,
+          amountInUsedAndProfitModel: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].amountAndProfitModel[currencyIndex].transfer!,
+          countPercentage: salaryListEmployee[salaryIndex].subSalaryList[subSalaryIndex].displayBusinessOptionModel.transferSetting.transferPercentage,
+        );
+      }
     }
   }
+  if (moneyTypeAndValueModel.value > maxSalaryNumber) {
+    moneyTypeAndValueModel.value = maxSalaryNumber;
+  }
+  return moneyTypeAndValueModel;
 }
 
 // ignore: must_be_immutable
@@ -333,13 +317,11 @@ class _SalaryElementLoadingState extends State<SalaryElementLoading> {
 
       Widget salaryAndMoneyTypeTextWidget() {
         final String salaryElement = formatAndLimitNumberTextGlobal(valueStr: salaryValueModel.value.toString(), isRound: false);
-        final String moneyType = widget
-            .salaryListEmployee[widget.dateIndex].subSalaryList[widget.salaryIndex].salaryHistoryList[widget.salaryHistoryIndex].salaryCalculation.moneyType!;
+        final String moneyType = widget.salaryListEmployee[widget.dateIndex].subSalaryList[widget.salaryIndex].salaryHistoryList[widget.salaryHistoryIndex].salaryCalculation.moneyType!;
 
         final int secondBetween2Date = salaryValueModel.startDateCalculation.difference(salaryValueModel.endDateCalculation).inSeconds;
         final double earning = textEditingControllerToDouble(
-            controller: widget.salaryListEmployee[widget.dateIndex].subSalaryList[widget.salaryIndex].salaryHistoryList[widget.salaryHistoryIndex]
-                .salaryCalculation.earningForHour)!;
+            controller: widget.salaryListEmployee[widget.dateIndex].subSalaryList[widget.salaryIndex].salaryHistoryList[widget.salaryHistoryIndex].salaryCalculation.earningForHour)!;
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
